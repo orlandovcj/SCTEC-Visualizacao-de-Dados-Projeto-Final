@@ -17,6 +17,7 @@ __pycache__/
 # Bases de dados locais de grande porte ou arquivos temporários
 data/raw/*.zip
 data/raw/*.csv
+data/raw/*.parquet
 *.sqlite3
 *.log
 
