@@ -10,6 +10,6 @@ Painel analítico integrado que correlaciona a política monetária nacional, in
 
 ## 13. Gestão Ágil e Links do Projeto
 
-- **Quadro Trello:** [Inserir Link Público Aqui]
+- **Quadro Trello:** https://trello.com/invite/b/6ad66e3ec1292230f0ed1436/ATTI89be60e163487560e45b035bc6b248610A1554C7/projeto-final-plataforma-financeira-triade-senai-sc
 - **Streamlit Community Cloud:** [Inserir Link Aqui após Deploy]
 - **Apresentação em Vídeo:** [Inserir Link Aqui]
