@@ -1,0 +1,26 @@
+# Ambientes Virtuais Python
+.venv/
+venv/
+ENV/
+env/
+
+# Arquivos compilados e caches
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Streamlit e Credenciais Confidenciais 
+.streamlit/secrets.toml
+
+# Bases de dados locais de grande porte ou arquivos temporários
+data/raw/*.zip
+data/raw/*.csv
+*.sqlite3
+*.log
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
