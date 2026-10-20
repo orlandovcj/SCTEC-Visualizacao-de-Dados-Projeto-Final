@@ -10,7 +10,20 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ### Em Andamento
 
-- **Card 05 / `feature/05-integracao-triade`**: Modelagem dimensional e integração analítica das três bases (BACEN + B3 + CVM) no script `src/integracao_triade.py` para geração da base consolidada da Tríade.
+- **Card 06 / `feature/06-app-layout-sidebar-filtros`**: Estruturação visual da aplicação Streamlit, painel reativo lateral (`st.sidebar`), persistência de estado (`st.session_state`), botão funcional de reset e abas temáticas (`st.tabs`).
+
+---
+
+## [0.5.0] - 2026-10-20
+
+### Adicionado
+
+- **Módulo de Integração Analítica da Tríade** em `src/integracao_triade.py`, unificando as três dimensões analíticas do edital (Macroeconomia BACEN + Mercado de Capitais B3 + Demonstrações Contábeis CVM).
+- Agregação anual de séries temporais:
+  - Médias e acumulados de política monetária e atividade econômica (Selic média anual, Selic fechamento, IPCA acumulado, Juro Real Ex-Post, Câmbio PTAX médio e IBC-Br).
+  - Performance e risco de mercado por ativo (retorno acumulado anual na B3, volatilidade média anualizada, pior drawdown do ano e volume financeiro consolidado).
+- Geração da base fato analítica consolidada em `data/processed/triade_consolidada.csv` com 36 registros (12 empresas ao longo dos exercícios de 2021, 2022 e 2023).
+- Gestão ágil: Conclusão do **Card 05** no quadro Kanban do Trello.
 
 ---
 
