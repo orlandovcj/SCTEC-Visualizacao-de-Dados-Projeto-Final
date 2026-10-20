@@ -32,7 +32,7 @@ ATIVOS_B3 = {
     "RENT3.SA": {"ticker": "RENT3", "setor": "Consumo Cíclico"}
 }
 
-DATA_INICIAL = "2021-01-01"
+DATA_INICIAL = "2019-01-01"
 DATA_FINAL = "2023-12-31"
 
 
