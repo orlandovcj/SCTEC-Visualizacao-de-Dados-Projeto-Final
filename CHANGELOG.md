@@ -25,6 +25,11 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 - Geração da base fato analítica consolidada em `data/processed/triade_consolidada.csv` com 36 registros (12 empresas ao longo dos exercícios de 2021, 2022 e 2023).
 - Gestão ágil: Conclusão do **Card 05** no quadro Kanban do Trello.
 
+### Corrigido
+
+- Ajuste no pipeline `src/etl_b3.py` para inclusão obrigatória das variáveis padronizadas de amplitude intradiária: Abertura (`abertura`), Máxima (`maxima`) e Mínima (`minima`), em estrito alinhamento com a especificação da Linha 2 / Item 4.1.1-B do edital.
+- Atualização do Dicionário de Dados do `README.md` (item 5.2) refletindo o esquema OHLCV.
+
 ---
 
 ## [0.4.0] - 2026-10-20
