@@ -16,10 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 RAW_DATA_DIR = BASE_DIR / "data" / "raw"
 PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
 
-# Dicionário de ativos com tickers limpos e setores oficiais
+# Dicionário de ativos com setores correspondentes
 ATIVOS_B3 = {
     "WEGE3.SA": {"ticker": "WEGE3", "setor": "Bens Industriais"},
-    "EMBJ3.SA": {"ticker": "EMBJ3", "setor": "Bens Industriais"},
+    "EMBJ3.SA": {"ticker": "EMBJ3", "setor": "Bens Industriais"},  # Histórico negociado como EMBR3
     "VALE3.SA": {"ticker": "VALE3", "setor": "Materiais Básicos"},
     "GGBR4.SA": {"ticker": "GGBR4", "setor": "Materiais Básicos"},
     "KLBN11.SA": {"ticker": "KLBN11", "setor": "Materiais Básicos"},
@@ -37,7 +37,7 @@ DATA_FINAL = "2023-12-31"
 
 
 def obter_sessao_http() -> requests.Session:
-    """Cria uma sessão HTTP com cabeçalhos de navegador para contornar bloqueios do Yahoo Finance."""
+    """Cria uma sessão HTTP estruturada para contornar bloqueios do Yahoo Finance."""
     sessao = requests.Session()
     sessao.headers.update({
         "User-Agent": (
@@ -52,7 +52,7 @@ def obter_sessao_http() -> requests.Session:
 
 
 def extrair_ativo_com_retry(ticker_sa: str, inicio: str, fim: str, max_tentativas: int = 3) -> pd.DataFrame:
-    """Extrai as cotações diárias de um único ativo com tentativas e tratamento de erros."""
+    """Extrai as cotações diárias completas (OHLCV) de um único ativo com retries."""
     sessao = obter_sessao_http()
     
     for tentativa in range(1, max_tentativas + 1):
@@ -60,10 +60,10 @@ def extrair_ativo_com_retry(ticker_sa: str, inicio: str, fim: str, max_tentativa
             ativo = yf.Ticker(ticker_sa, session=sessao)
             df = ativo.history(start=inicio, end=fim, auto_adjust=False)
             
-            if not df.empty:
+            if not df.empty and "Open" in df.columns:
                 return df
             
-            # Tentativa alternativa via método download direto
+            # Tentativa alternativa com download direto
             df = yf.download(
                 tickers=ticker_sa,
                 start=inicio,
@@ -72,7 +72,7 @@ def extrair_ativo_com_retry(ticker_sa: str, inicio: str, fim: str, max_tentativa
                 progress=False,
                 session=sessao
             )
-            if not df.empty:
+            if not df.empty and "Open" in df.columns:
                 return df
                 
         except Exception as e:
@@ -83,26 +83,29 @@ def extrair_ativo_com_retry(ticker_sa: str, inicio: str, fim: str, max_tentativa
 
 
 def calcular_indicadores_ativo(df_ativo: pd.DataFrame, ticker: str, setor: str) -> pd.DataFrame:
-    """Calcula retorno diário, Base 100, drawdown e volatilidade anualizada."""
+    """Calcula métricas padronizadas e preserva variáveis OHLCV obrigatórias."""
     df = df_ativo.copy()
     
-    # Padronização de colunas caso venha com MultiIndex de colunas
+    # Tratamento caso venha MultiIndex
     if isinstance(df.columns, pd.MultiIndex):
         df.columns = df.columns.get_level_values(0)
 
     df.reset_index(inplace=True)
     
-    # Tratamento de nome da coluna de data
     col_data = "Date" if "Date" in df.columns else "data"
-    df.dropna(subset=["Adj Close", "Close"], inplace=True)
+    df.dropna(subset=["Adj Close", "Close", "Open", "High", "Low"], inplace=True)
     df.sort_values(by=col_data, inplace=True)
     
     if df.empty:
         return pd.DataFrame()
 
+    # Variáveis Padronizadas Obrigatórias pelo Edital (Item 4.1.1-B)
     df["data"] = pd.to_datetime(df[col_data]).dt.date
     df["ticker"] = ticker
     df["setor"] = setor
+    df["abertura"] = df["Open"].round(2)
+    df["maxima"] = df["High"].round(2)
+    df["minima"] = df["Low"].round(2)
     df["preco_fechamento"] = df["Close"].round(2)
     df["preco_ajustado"] = df["Adj Close"].round(4)
     df["volume_financeiro"] = df["Volume"].astype(float)
@@ -114,29 +117,30 @@ def calcular_indicadores_ativo(df_ativo: pd.DataFrame, ticker: str, setor: str) 
     preco_base = df["preco_ajustado"].iloc[0]
     df["base_100"] = ((df["preco_ajustado"] / preco_base) * 100).round(2)
 
-    # 3. Drawdown Máximo Histórico
+    # 3. Drawdown Histórico
     pico = df["preco_ajustado"].cummax()
     df["drawdown"] = (((df["preco_ajustado"] - pico) / pico) * 100).round(2)
 
-    # 4. Volatilidade Móvel Anualizada (Janela 21 dias úteis)
+    # 4. Volatilidade Móvel Anualizada (21 pregões úteis)
     df["volatilidade_21d"] = (
         df["retorno_diario"].rolling(window=21).std() * np.sqrt(252) * 100
     ).round(2)
 
     colunas_finais = [
-        "data", "ticker", "setor", "preco_fechamento", "preco_ajustado",
+        "data", "ticker", "setor", 
+        "abertura", "maxima", "minima", "preco_fechamento", "preco_ajustado",
         "volume_financeiro", "retorno_diario", "base_100", "drawdown", "volatilidade_21d"
     ]
     return df[colunas_finais]
 
 
 def executar_pipeline_b3():
-    """Executa a coleta serial resiliente de cada ativo e consolida a base."""
+    """Executa a coleta e cálculo das variáveis OHLCV e métricas de mercado."""
     RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     registros_processados = []
-    print(f"Iniciando coleta resiliente de cotações para {len(ATIVOS_B3)} ativos...")
+    print(f"Iniciando coleta com inclusão de OHLCV para {len(ATIVOS_B3)} ativos...")
 
     for ticker_sa, info in ATIVOS_B3.items():
         ticker_puro = info["ticker"]
@@ -146,33 +150,26 @@ def executar_pipeline_b3():
         df_bruto = extrair_ativo_com_retry(ticker_sa, DATA_INICIAL, DATA_FINAL)
         
         if df_bruto.empty:
-            print(f"ALERTA: Não foi possível obter dados para {ticker_sa}.")
+            print(f"ALERTA: Falha na extração de {ticker_sa}.")
             continue
 
-        # Salva backup individual bruto
-        df_bruto.to_csv(RAW_DATA_DIR / f"b3_{ticker_puro}_bruto.csv")
-
-        # Processa métricas
+        # Processamento com campos OHLCV
         df_tratado = calcular_indicadores_ativo(df_bruto, ticker_puro, setor)
         if not df_tratado.empty:
             registros_processados.append(df_tratado)
 
-        # Intervalo de segurança para respeitar a taxa de requisições da API
         time.sleep(0.5)
 
     if not registros_processados:
-        raise RuntimeError(
-            "Erro Crítico: Nenhum ativo da B3 pôde ser baixado via yfinance. "
-            "Verifique sua conexão ou restrições de firewall/DNS."
-        )
+        raise RuntimeError("Erro Crítico: Não foi possível baixar ativos da B3.")
 
     df_final = pd.concat(registros_processados, ignore_index=True)
     caminho_csv = PROCESSED_DATA_DIR / "mercado_b3.csv"
     df_final.to_csv(caminho_csv, index=False)
 
-    print(f"\nPipeline B3 finalizado com sucesso!")
+    print(f"\nPipeline B3 atualizado com sucesso!")
     print(f"Total de registros consolidados: {len(df_final)}")
-    print(f"Ativos processados: {df_final['ticker'].unique().tolist()}")
+    print(f"Colunas geradas: {df_final.columns.tolist()}")
     print(f"Arquivo gerado em: {caminho_csv}")
     return df_final
 

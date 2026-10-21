@@ -94,18 +94,21 @@ Abaixo estão detalhados os campos consolidados e modelados nas bases tratadas d
 
 ### 5.2. Base de Mercado de Ações (`data/processed/mercado_b3.csv`)
 
-| Coluna              | Tipo Primitivo | Descrição Financeira / Significado                                       | Regra de Cálculo / Origem                                                       |
-| :------------------ | :------------- | :----------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
-| `data`              | `date`         | Data do pregão útil de negociação                                        | Índice temporal yfinance                                                        |
-| `ticker`            | `string`       | Código de negociação da ação na B3 (ex: WEGE3, PETR4)                    | Mapeamento do ativo                                                             |
-| `setor`             | `string`       | Classificação setorial de atuação econômica                              | Metadado padronizado do projeto                                                 |
-| `preco_fechamento`  | `float`        | Preço nominal de encerramento do pregão (R$)                             | Coluna `Close` da B3                                                            |
-| `preco_ajustado`    | `float`        | Preço ajustado por dividendos, juros sobre capital e desdobramentos (R$) | Coluna `Adj Close` da B3                                                        |
-| `volume_financeiro` | `float`        | Volume de capital total negociado no pregão (R$)                         | Coluna `Volume` da B3                                                           |
-| `retorno_diario`    | `float`        | Variação percentual diária do preço ajustado                             | $\frac{P_t - P_{t-1}}{P_{t-1}}$                                                 |
-| `base_100`          | `float`        | Desempenho relativo normalizado (início da série = 100)                  | $\left(\frac{P_t}{P_0}\right) \times 100$                                       |
-| `drawdown`          | `float`        | Queda percentual acumulada a partir da máxima histórica até a data (%)   | $\left(\frac{P_t - \max(P_0 \dots P_t)}{\max(P_0 \dots P_t)}\right) \times 100$ |
-| `volatilidade_21d`  | `float`        | Risco de mercado móvel anualizado em janela de 21 dias úteis (% a.a.)    | $\text{DesvPad}(R_{21}) \times \sqrt{252} \times 100$                           |
+| Coluna              | Tipo Primitivo | Descrição Financeira / Significado                        | Regra de Cálculo / Origem                                                       |
+| :------------------ | :------------- | :-------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| `data`              | `date`         | Data do pregão útil de negociação                         | Índice temporal yfinance                                                        |
+| `ticker`            | `string`       | Código de negociação da ação na B3 (ex: WEGE3, PETR4)     | Mapeamento corporativo                                                          |
+| `setor`             | `string`       | Classificação setorial de atuação econômica               | Metadado padronizado                                                            |
+| `abertura`          | `float`        | Preço de abertura do ativo no pregão (R$)                 | Coluna `Open` da B3                                                             |
+| `maxima`            | `float`        | Preço máximo atingido durante a sessão (R$)               | Coluna `High` da B3                                                             |
+| `minima`            | `float`        | Preço mínimo atingido durante a sessão (R$)               | Coluna `Low` da B3                                                              |
+| `preco_fechamento`  | `float`        | Preço nominal de encerramento do pregão (R$)              | Coluna `Close` da B3                                                            |
+| `preco_ajustado`    | `float`        | Preço ajustado por dividendos, JCP e splits (R$)          | Coluna `Adj Close` da B3                                                        |
+| `volume_financeiro` | `float`        | Volume financeiro total movimentado na sessão (R$)        | Coluna `Volume` da B3                                                           |
+| `retorno_diario`    | `float`        | Variação percentual diária do preço ajustado              | $\frac{P_t - P_{t-1}}{P_{t-1}}$                                                 |
+| `base_100`          | `float`        | Desempenho relativo normalizado (início = 100)            | $\left(\frac{P_t}{P_0}\right) \times 100$                                       |
+| `drawdown`          | `float`        | Queda percentual acumulada a partir do pico histórico (%) | $\left(\frac{P_t - \max(P_0 \dots P_t)}{\max(P_0 \dots P_t)}\right) \times 100$ |
+| `volatilidade_21d`  | `float`        | Risco de mercado anualizado móvel em 21 pregões (% a.a.)  | $\text{DesvPad}(R_{21}) \times \sqrt{252} \times 100$                           |
 
 ### 5.3. Base de Demonstrações Contábeis (`data/processed/balancos_cvm.csv`)
 
