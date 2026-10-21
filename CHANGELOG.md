@@ -10,7 +10,20 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ### Em Andamento
 
-- **Card 06 / `feature/06-app-layout-sidebar-filtros`**: Estruturação visual da aplicação Streamlit, painel reativo lateral (`st.sidebar`), persistência de estado (`st.session_state`), botão funcional de reset e abas temáticas (`st.tabs`).
+- **Card 06 / `feature/06-app-layout-sidebar-filtros`**: Desenvolvimento da interface visual em Streamlit, estruturação em abas (`st.tabs`), reatividade da barra lateral (`st.sidebar`), persistência de estado (`st.session_state`) e botão funcional de reset de filtros.
+
+---
+
+## [0.6.0] - 2026-10-20
+
+### Adicionado
+
+- **Módulo de Carga em Nuvem (`src/carregar_supabase.py`)**: Script utilitário para provisionamento e ingestão massiva das 4 tabelas relacionais no PostgreSQL hospedado no Supabase (`macro_bacen`, `mercado_b3`, `balancos_cvm` e `triade_consolidada`).
+- **Módulo de Acesso Resiliente a Dados (`src/database.py`)**: Camada de conexão corporativa implementando o padrão _Circuit Breaker / Fallback_:
+  - Tentativa primária de consulta via `st.connection("postgresql", type="sql")` ao banco Supabase.
+  - Otimização com decorador `@st.cache_data(ttl=3600, show_spinner=False)`.
+  - Mecanismo de contingência automática em bloco `try/except` para carregamento dos arquivos CSV locais em `data/processed/` caso haja falha de credenciais, timeout ou interrupção do serviço em nuvem.
+- Atendimento pleno aos requisitos de Arquitetura e Segurança do Item 4.4 do edital, mantendo o arquivo `.streamlit/secrets.toml` protegido pelo `.gitignore`.
 
 ---
 
