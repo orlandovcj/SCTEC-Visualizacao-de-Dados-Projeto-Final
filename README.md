@@ -152,8 +152,167 @@ A seleção de tecnologias orientou-se pelo equilíbrio entre performance comput
 
 ---
 
-## 13. Gestão Ágil e Links do Projeto
+## 7. Análise dos Resultados: Impacto do Aperto Monetário (Pergunta de Negócio 1)
+
+### 7.1. Dinâmica da Política Monetária e Custo da Dívida
+
+Entre janeiro de 2021 e agosto de 2022, o Comitê de Política Monetária (COPOM/BACEN) promoveu um dos ciclos de aperto monetário mais agressivos da história recente brasileira, elevando a Taxa Selic Meta de seu piso histórico de **2,00% a.a.** para o patamar restritivo de **13,75% a.a.** (alta acumulada de $+1.175$ pontos-base), mantendo-a nesse patamar até o início do ciclo de afrouxamento no segundo semestre de 2023 (encerrando a **11,75% a.a.**).
+
+Esse movimento foi acompanhado pelo encarecimento imediato das linhas de crédito indexadas ao CDI. As companhias com estrutura de capital alavancada e maior proporção de passivos atrelados ao CDI/Selic sofreram expressiva expansão de suas despesas financeiras líquidas.
+
+### 7.2. Evidências Contábeis na Carteira CVM
+
+- **Compressão do Resultado Líquido:** Companhias de capital intensivo e varejo cíclico registraram aumento superior a $80\%$ nas despesas financeiras entre 2021 e 2023, o que reduziu as margens líquidas mesmo nos casos em que a receita bruta permaneceu em expansão nominal.
+- **Resiliência do Setor Financeiro:** Em contrapartida, grandes instituições financeiras (`ITUB4` e `BBDC4`) ampliaram sua margem financeira líquida com clientes, sustentando ROE consolidado no patamar de $15\%$ a $20\%$, beneficiando-se da reprecificação de carteiras de crédito ativas em ambiente de juros nominais elevados.
+
+---
+
+## 8. Análise Setorial de Sensibilidade aos Juros e Inflação (Pergunta de Negócio 2)
+
+### 8.1. Contração de Múltiplos no Consumo Cíclico
+
+O setor de **Consumo Cíclico** (`RENT3`, `LREN3`) apresentou sensibilidade assimétrica negativa durante o ciclo de alta da Selic:
+
+- **Efeito Renda e Crédito:** A combinação de inflação IPCA acima de $10\%$ em 2021 com o encarecimento do crédito ao consumidor contraiu o volume de vendas e alongou os prazos de recebimento.
+- **Desempenho em Bolsa:** Os múltiplos de preço/lucro sofreram contração expressiva, refletida em desvalorizações acumuladas na B3 e drawdowns superiores a $35\%$ no período mais agudo do aperto (2021-2022).
+
+### 8.2. Papéis Defensivos e Cobertura Inflacionária
+
+- **Energia Elétrica (`EGIE3`):** Caracterizado por fluxos de caixa previsíveis e contratos de transmissão e geração com reajuste indexado a índices de preços (IPCA e IGP-M), o setor operou como ativo de proteção, apresentando baixa volatilidade realizada ($< 22\%$ a.a.) e pagamentos de proventos resilientes.
+- **Bens Industriais (`WEGE3`):** Apresentou resiliência singular ancorada em diversificação geográfica, receita dolarizada e liderança tecnológica na transição energética, mantendo Retorno sobre o Capital Próprio (ROE) consistentemente acima de $25\%$.
+
+---
+
+## 9. Proteção Cambial e Eficiência Operacional das Commodities (Pergunta de Negócio 3)
+
+### 9.1. Análise do Desempenho de Exportadoras
+
+O triênio 2021–2023 foi marcado por oscilações severas no câmbio comercial (Dólar PTAX médio entre **R$ 5,05 e R$ 5,39**). As companhias produtoras de commodities básicas:
+
+- **Petróleo e Gás (`PETR4`, `PRIO3`):** Beneficiaram-se da conjugação entre cotação internacional do barril de petróleo Brent em patamares elevados e depreciação cambial, atingindo Margens EBIT operacionais superiores a $45\%$ e geração massiva de fluxo de caixa livre.
+- **Mineração e Siderurgia (`VALE3`, `GGBR4`):** Registraram receitas operacionais recordes em 2021 impulsionadas pelo ciclo global de commodities, mantendo índices de alavancagem financeira (Dívida Líquida / EBITDA) abaixo de $1,0x$.
+- **Papel e Celulose (`KLBN11`, `SUZB3`):** A receita operacional dolarizada atuou como hedge natural contra a elevação de insumos operacionais e despesas financeiras.
+
+---
+
+## 10. Diagnóstico Integrado de Resiliência da Carteira (Pergunta de Negócio 4)
+
+Confrontando os três vértices da Tríade, a carteira evidenciou clara segregação de resiliência:
+
+| Dimensão Analítica                     | Setores Vencedores                             | Setores Vulneráveis                               |
+| :------------------------------------- | :--------------------------------------------- | :------------------------------------------------ |
+| **Solidez Contábil (CVM)**             | Bens Industriais, Energia Elétrica e Petróleo  | Consumo Cíclico e Varejo                          |
+| **Proteção de Margens (EBIT %)**       | Petróleo & Gás ($>40\%$) e Materiais ($>30\%$) | Consumo Cíclico ($<10\%$)                         |
+| **Retorno em Bolsa (B3)**              | Petróleo & Gás e Instituições Financeiras      | Varejo de Consumo e Construção                    |
+| **Índice de Cobertura de Curto Prazo** | Empresas com Liquidez Corrente $> 1,5x$        | Empresas no _Alerta de Insolvência_ ($LC < 1,0x$) |
+
+**Conclusão Estratégica:** A maior resiliência integrada foi obtida por companhias que combinaram **baixa dívida líquida**, **capacidade de repasse de preços (pricing power)** e **fontes de receita descorrelacionadas da demanda de crédito doméstico**.
+
+---
+
+## 11. Limitações Metodológicas e Ressalvas Técnicas
+
+1. **Horizonte Temporal Amostral:** O recorte de 3 anos (2021 a 2023) para as demonstrações contábeis e mercado de ações reflete um ciclo atípico pós-pandemia de choque de oferta e rápida normalização, não devendo ser extrapolado como comportamento perpétuo.
+2. **Defasagem da Política Monetária (_Lags_):** A teoria econômica e os modelos do BACEN indicam que os efeitos da Taxa Selic sobre a economia real e balanços levam de **6 a 18 meses** para se manifestar plenamente. Correlações concomitantes devem ser analisadas com cautela analítica.
+3. **Plano Contábil Diferenciado (COSIF):** Bancos (`ITUB4`, `BBDC4`) utilizam normatização própria do Banco Central. Indicadores clássicos de solvência fabril (Dívida Líquida e Liquidez Corrente) foram devidamente suprimidos dessas instituições na aplicação para evitar distorções interpretativas.
+4. **Premissa Estatística:** _Correlação de Pearson não implica causalidade determinística_. Variações conjunturais internacionais (taxas do Federal Reserve e choques energéticos europeus) influenciaram o câmbio e a B3 de forma exógena.
+
+---
+
+## 12. Arquitetura da Aplicação e Design de UX/UI
+
+A interface analítica foi construída sobre o framework **Streamlit** obedecendo aos princípios de **Visualização de Dados e Heurísticas de Nielsen**:
+
+- **Pirâmide Invertida:** Cartões executivos de síntese (`st.metric`) no topo de cada visão, seguidos de gráficos de correlação e detalhamento tabular com exportação ao final.
+- **Navegação Modular (`st.tabs`):** Organização das 4 Linhas Temáticas em abas dedicadas, reduzindo a sobrecarga cognitiva do tomador de decisão.
+- **Carga de Dados com Resiliência:** Camada de contingência automática em bloco `try/except` com cache otimizado (`@st.cache_data(ttl=3600)`), garantindo alta velocidade de carregamento em consultas subsequentes.
+- **Acessibilidade Visual:** Paletas de cores com contraste adequado, tipografia proporcional e eliminação de artefatos 3D que comprometam a leitura de grandezas.
+
+---
+
+## 13. Governança de Projeto, Gestão Ágil e GitFlow
+
+### 13.1. Modelo GitFlow Implementado
+
+O versionamento rigoroso foi executado com branches dedicadas preservadas no histórico remoto do GitHub:
+
+- `main`: Ramo estável de produção contendo as versões auditadas.
+- `develop`: Ramo de integração contínua de funcionalidades.
+- `feature/*` e `fix/*`: Ramos específicos abertos a partir da `develop` e mesclados via `--no-ff` (sem fast-forward) para manutenção do grafo de versionamento:
+  - `feature/01-estrutura-ambiente`
+  - `feature/02-etl-bacen-macro`
+  - `feature/03-etl-b3-mercado`
+  - `fix/03-b3-variaveis-ohlcv`
+  - `feature/04-etl-cvm-balancos`
+  - `feature/05-integracao-triade`
+  - `feature/05b-carga-supabase-resiliencia`
+  - `feature/06-app-layout-sidebar-filtros`
+  - `feature/07-app-kpis-graficos-plotly`
+
+### 13.2. Quadro Kanban (Trello)
+
+O desenvolvimento seguiu a metodologia ágil Kanban com disciplina de **Trabalho em Progresso (WIP = 1)**, garantindo que nenhum card fosse iniciado antes da conclusão e validação do anterior.
+
+![Quadro Kanban do Projeto](data/raw/trello_kanban.png)
 
 - **Quadro Trello:** https://trello.com/invite/b/6ad66e3ec1292230f0ed1436/ATTI89be60e163487560e45b035bc6b248610A1554C7/projeto-final-plataforma-financeira-triade-senai-sc
+  _(Evidência do fluxo de cartões no Trello: Backlog $\rightarrow$ Em Andamento $\rightarrow$ Concluído)._
+
+---
+
+## 14. Instruções de Execução e Reproducibilidade
+
+### 14.1. Clonagem e Configuração do Ambiente
+
+```bash
+# Clonar o repositório
+git clone [https://github.com/SEU_USUARIO/SCTEC-Visualizacao-de-Dados-Projeto-Final.git](https://github.com/SEU_USUARIO/SCTEC-Visualizacao-de-Dados-Projeto-Final.git)
+cd SCTEC-Visualizacao-de-Dados-Projeto-Final
+
+# Criar e ativar o ambiente virtual Python (3.10+)
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+.venv\Scripts\activate     # Windows
+
+# Instalar dependências exatas
+pip install -r requirements.txt
+```
+
+### 14.2. Configuração de Credenciais (.streamlit/secrets.toml)
+
+Crie o arquivo .streamlit/secrets.toml caso deseje conectar ao banco PostgreSQL na nuvem:
+
+```toml
+[connections.postgresql]
+dialect = "postgresql"
+host = "db.SEU_PROJETO.supabase.co"
+port = "5432"
+database = "postgres"
+username = "postgres"
+password = "SUA_SENHA_DATABASE"
+```
+
+### 14.3. Execução dos Pipelines de ETL e da Aplicação
+
+```bash
+# Executar o ETL do Banco Central (Selic e Inflação)
+python src/etl_bacen.py
+
+# Executar o ETL da B3 (Mercado Acionário)
+python src/etl_b3.py
+
+# Executar o ETL da CVM (Demonstrações Contábeis)
+python src/etl_cvm.py
+
+# Executar a aplicação de BI e Análise
+streamlit run app/main_app.py
+```
+
+_(Nota: Na ausência do arquivo ou de conexão com o banco, o sistema acionará automaticamente a contingência local lendo os arquivos CSV em `data/processed/`)._
+
+Acesse a aplicação no navegador em: http://localhost:8501.
+
+## 15. Links do Produto Final
+
 - **Streamlit Community Cloud:** [Inserir Link Aqui após Deploy]
 - **Apresentação em Vídeo:** [Inserir Link Aqui]

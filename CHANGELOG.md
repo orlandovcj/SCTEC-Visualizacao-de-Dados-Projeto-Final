@@ -10,7 +10,28 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ### Em Andamento
 
-- **Card 07 / `feature/07-app-kpis-metricas`**: Implementação dos cartões de indicadores estratégicos (KPIs) com `st.metric` e cálculo de variações temporais (_deltas_).
+- **Card 09 / `feature/09-documentacao-final-readme`**: Validação de homologação final e revisão da documentação executiva do repositório.
+
+---
+
+## [0.8.0] - 2026-10-23
+
+### Adicionado
+
+- **Descentralização dos KPIs Estratégicos (`st.metric`)**:
+  - Implementação de 4 KPIs dedicados e contextualizados no topo de cada uma das 4 abas analíticas.
+  - Cálculo dinâmico de variações anuais (_deltas_ $t$ vs. $t-1$) e confrontos com taxas balizadoras (Taxa Selic Meta).
+  - Semântica visual com cores invertidas para métricas de risco e inflação (IPCA 12M e Ativo de Menor Performance).
+- **Grade Oficial de Visualizações Analíticas Interativas (Plotly Express e Graph Objects)**:
+  - **Linha 4 (Tríade Integrada):** Gráfico Multieixo Macro-Cambial, Base 100 na B3, Barras Contábeis CVM com ROE, Gráfico Combinado de Retorno Setorial vs. Selic Média Anual e Dispersão Fundamentalista (Margem EBIT vs. Retorno B3).
+  - **Linha 2 (Mercado de Ações B3):** Curvas Base 100 dinâmicas, Dispersão Risco $\times$ Retorno ponderada por volume, Histograma de Retornos com Boxplot marginal, Área de Drawdown acumulado e Gráfico Multilinha de Médias Móveis ($SMA_{21}$ e $SMA_{50}$) com seletor de inspeção técnica.
+  - **Linha 1 (Balanços CVM):** Evolução histórica da Receita Líquida em barras agrupadas, Treemap setorial de representatividade de faturamento, Quadrante Estratégico Margem Líquida vs. ROE, Boxplot de Margem EBIT e **Matriz de Solvência e Risco Corporativo** com quadrantes sombreados (_Alerta de Insolvência_ e _Fortaleza Financeira_).
+  - **Linha 3 (Macroeconomia BACEN):** Gráfico Combinado de Política Monetária (Selic, IPCA e Juro Real Ex-Post em barras), Linha Cambial PTAX com Média Histórica do período, Dispersão Dólar vs. IPCA dimensionado pela Selic, Linha do IBC-Br dessazonalizado e Heatmap de Correlação de Pearson com anotações automáticas.
+- **Filtros Múltiplos e Reatividade Avançada (`st.multiselect`)**:
+  - Migração de seletores para seleções múltiplas de Exercício Fiscal, Setores Econômicos e Ativos, com persistência de estado via `st.session_state`.
+  - Tratamento de exceções e compatibilidade vetorial no Pandas com o método `.isin()`.
+  - Botão funcional de redefinição de parâmetros analíticos (_Reset Filters_).
+- Gestão ágil: Conclusão dos **Cards 07 e 08** no quadro Kanban do Trello.
 
 ---
 

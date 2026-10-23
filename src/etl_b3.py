@@ -19,17 +19,20 @@ PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
 # Dicionário de ativos com setores correspondentes
 ATIVOS_B3 = {
     "WEGE3.SA": {"ticker": "WEGE3", "setor": "Bens Industriais"},
-    "EMBJ3.SA": {"ticker": "EMBJ3", "setor": "Bens Industriais"},  # Histórico negociado como EMBR3
+    "EMBJ3.SA": {"ticker": "EMBJ3", "setor": "Bens Industriais"},  # Histórico EMBR3
     "VALE3.SA": {"ticker": "VALE3", "setor": "Materiais Básicos"},
     "GGBR4.SA": {"ticker": "GGBR4", "setor": "Materiais Básicos"},
     "KLBN11.SA": {"ticker": "KLBN11", "setor": "Materiais Básicos"},
+    "SUZB3.SA": {"ticker": "SUZB3", "setor": "Materiais Básicos"},
     "PETR4.SA": {"ticker": "PETR4", "setor": "Petróleo e Gás"},
     "PRIO3.SA": {"ticker": "PRIO3", "setor": "Petróleo e Gás"},
     "EGIE3.SA": {"ticker": "EGIE3", "setor": "Energia Elétrica"},
     "ITUB4.SA": {"ticker": "ITUB4", "setor": "Financeiro"},
     "BBDC4.SA": {"ticker": "BBDC4", "setor": "Financeiro"},
     "ABEV3.SA": {"ticker": "ABEV3", "setor": "Consumo Não Cíclico"},
-    "RENT3.SA": {"ticker": "RENT3", "setor": "Consumo Cíclico"}
+    "JBSS32.SA": {"ticker": "JBSS32", "setor": "Consumo Não Cíclico"}, # Em junho de 2025 JBSS3 foi deslistada, eJBSS32 virou a ação principal.
+    "RENT3.SA": {"ticker": "RENT3", "setor": "Consumo Cíclico"},
+    "LREN3.SA": {"ticker": "LREN3", "setor": "Consumo Cíclico"}
 }
 
 DATA_INICIAL = "2019-01-01"

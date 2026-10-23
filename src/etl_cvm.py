@@ -22,11 +22,14 @@ COMPANHIAS_CVM = {
     "012653": {"ticker": "KLBN11", "nome": "KLABIN S.A.", "setor": "Materiais Básicos"},
     "013986": {"ticker": "SUZB3", "nome": "SUZANO S.A.", "setor": "Materiais Básicos"},
     "009512": {"ticker": "PETR4", "nome": "PETROLEO BRASILEIRO S.A. PETROBRAS", "setor": "Petróleo e Gás"},
+    "022187": {"ticker": "PRIO3", "nome": "PRIO S.A.", "setor": "Petróleo e Gás"},
     "017329": {"ticker": "EGIE3", "nome": "ENGIE BRASIL ENERGIA S.A.", "setor": "Energia Elétrica"},
     "019348": {"ticker": "ITUB4", "nome": "ITAU UNIBANCO HOLDING S.A.", "setor": "Financeiro"},
     "023264": {"ticker": "ABEV3", "nome": "AMBEV S.A.", "setor": "Consumo Não Cíclico"},
-    "020575": {"ticker": "JBSS3", "nome": "JBS S.A.", "setor": "Consumo Não Cíclico"},
-    "008133": {"ticker": "LREN3", "nome": "LOJAS RENNER S.A.", "setor": "Consumo Cíclico"}
+    "020575": {"ticker": "JBSS32", "nome": "JBS S.A.", "setor": "Consumo Não Cíclico"},
+    "008133": {"ticker": "LREN3", "nome": "LOJAS RENNER S.A.", "setor": "Consumo Cíclico"},
+    "000906": {"ticker": "BBDC4", "nome": "BRADESCO S.A.", "setor": "Financeiro"},
+    "019739": {"ticker": "RENT3", "nome": "LOCALIZA RENT A CAR S.A.", "setor": "Consumo Cíclico"}
 }
 
 ANOS_EXERCICIO = [2019, 2020, 2021, 2022, 2023]
