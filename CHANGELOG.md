@@ -10,7 +10,22 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ### Em Andamento
 
-- **Card 06 / `feature/06-app-layout-sidebar-filtros`**: Desenvolvimento da interface visual em Streamlit, estruturação em abas (`st.tabs`), reatividade da barra lateral (`st.sidebar`), persistência de estado (`st.session_state`) e botão funcional de reset de filtros.
+- **Card 07 / `feature/07-app-kpis-metricas`**: Implementação dos cartões de indicadores estratégicos (KPIs) com `st.metric` e cálculo de variações temporais (_deltas_).
+
+---
+
+## [0.7.0] - 2026-10-23
+
+### Adicionado
+
+- **Estrutura Visual e Navegação do Data App (`app.py`)**:
+  - Configuração de página no Streamlit em modo expandido (_wide layout_).
+  - Barra lateral interativa (`st.sidebar`) com filtros cruzados interdependentes: Exercício Fiscal, Setor Económico e Ticker/Empresa.
+  - Gestão de estado reativo via `st.session_state` com botão funcional para restaurar os filtros padrão.
+  - Indicador em tempo real do estado da ligação de dados (Supabase vs. Contingência Local).
+  - Organização visual modular em 5 separadores (`st.tabs`): Visão Integrada (Tríade), Macroeconomia (BACEN), Mercado de Ações (B3), Balanços (CVM) e Base de Dados.
+  - Mecanismo de exportação de dados tabulares filtrados em formato CSV com `st.download_button`.
+- Gestão ágil: Conclusão do **Card 06** no quadro Kanban do Trello.
 
 ---
 
