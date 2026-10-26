@@ -2,10 +2,9 @@
 
 ---
 
-## 1. Título e Resumo Executivo
+## 1. Plataforma Financeira Integrada (Tríade: Macro + Mercados + Balanços)
 
-**Plataforma Financeira Integrada (Tríade: Macro + Mercado + Balanços)**  
-Trata-se de uma solução corporativa de Business Intelligence e Data Analytics desenvolvida em Python e Streamlit, cujo objetivo é conectar de ponta a ponta as três forças motrizes da tomada de decisão de investimentos e gestão estratégica: o cenário macroeconômico e a política monetária (BACEN), a precificação e volatilidade dos ativos de capital (B3) e a solidez econômico-financeira contábil das companhias abertas (CVM). A plataforma viabiliza análises multivariadas integradas, substituindo a leitura isolada de balanços ou gráficos de cotações por uma avaliação contextualizada do impacto dos ciclos de juros e câmbio na performance real das empresas brasileiras.
+Trata-se de uma solução de Business Intelligence e Data Analytics desenvolvida em Python e Streamlit, cujo objetivo é conectar de ponta a ponta as três forças motrizes da tomada de decisão de investimentos e gestão estratégica: o cenário macroeconômico e a política monetária (BACEN), a precificação e volatilidade dos ativos de capital (B3) e a solidez econômico-financeira contábil das companhias abertas (CVM). A plataforma viabiliza análises multivariadas integradas, substituindo a leitura isolada de balanços ou gráficos de cotações por uma avaliação contextualizada do impacto dos ciclos de juros e câmbio na performance real das empresas brasileiras.
 
 ---
 
@@ -32,13 +31,13 @@ Qual foi o grau de resiliência das companhias abertas brasileiras frente ao cho
 
 A aplicação baseia-se exclusivamente em bases de dados públicas e oficiais, auditáveis e com licença aberta governamental/corporativa:
 
-| Domínio                     | Fonte Oficial                                                                   | Recorte Temporal                        | Método de Obtenção                                                                       | Licença / Acesso                                      |
-| :-------------------------- | :------------------------------------------------------------------------------ | :-------------------------------------- | :--------------------------------------------------------------------------------------- | :---------------------------------------------------- |
-| **Macroeconomia**           | Sistema Gerenciador de Séries Temporais (SGS) - Banco Central do Brasil (BACEN) | 01/01/2019 a 31/12/2023 (5 anos)        | API REST pública oficial via biblioteca `requests` (JSON)                                | Dados Abertos Governamentais (Acesso Público)         |
-| **Mercado de Ações**        | Histórico Diário de Cotações da B3 (Brasil, Bolsa, Balcão)                      | 01/01/2021 a 31/12/2023 (3 anos)        | Extração via biblioteca `yfinance` com sessão HTTP estruturada e intervalos de segurança | Dados de Mercado Públicos (Uso Acadêmico/Educacional) |
-| **Demonstrações Contábeis** | Portal de Dados Abertos da CVM (Comissão de Valores Mobiliários) - DFP          | Exercícios Fiscais de 2021, 2022 e 2023 | Ingestão e processamento de arquivos CSV consolidados (`_con_`) de DRE, BPA e BPP        | Dados Abertos CVM (Acesso Público Governamental)      |
+| Domínio                     | Fonte Oficial                                                                   | Recorte Temporal                  | Método de Obtenção                                                                       | Licença / Acesso                                      |
+|:--------------------------- |:------------------------------------------------------------------------------- |:--------------------------------- |:---------------------------------------------------------------------------------------- |:----------------------------------------------------- |
+| **Macroeconomia**           | Sistema Gerenciador de Séries Temporais (SGS) - Banco Central do Brasil (BACEN) | 01/01/2019 a 31/12/2023 (5 anos)  | API REST pública oficial via biblioteca `requests` (JSON)                                | Dados Abertos Governamentais (Acesso Público)         |
+| **Mercado de Ações**        | Histórico Diário de Cotações da B3 (Brasil, Bolsa, Balcão)                      | 01/01/2019 a 31/12/2023 (3 anos)  | Extração via biblioteca `yfinance` com sessão HTTP estruturada e intervalos de segurança | Dados de Mercado Públicos (Uso Acadêmico/Educacional) |
+| **Demonstrações Contábeis** | Portal de Dados Abertos da CVM (Comissão de Valores Mobiliários) - DFP          | Exercícios Fiscais de 2019 a 2023 | Ingestão e processamento de arquivos CSV consolidados (`_con_`) de DRE, BPA e BPP        | Dados Abertos CVM (Acesso Público Governamental)      |
 
-_Nota de Governança:_ O universo abrange 12 companhias de grande porte distribuídas em setores estratégicos: `WEGE3`, `EMBJ3` (antiga `EMBR3`), `VALE3`, `GGBR4`, `KLBN11`, `SUZB3`, `PETR4`, `EGIE3`, `ITUB4`, `ABEV3`, `JBSS3` e `LREN3`.
+_Nota de Governança:_ O universo abrange 12 companhias de grande porte distribuídas em setores estratégicos: `WEGE3`, `EMBJ3` (antiga `EMBR3`), `VALE3`, `GGBR4`, `KLBN11`, `SUZB3`, `PETR4`, `PRIO3`,  `EGIE3`, `ITUB4`, `ABEV3`, `JBSS32` (antiga `JBSS3`), `LREN3`, `BBDC4` e `RENT3`.
 
 ---
 
@@ -58,20 +57,23 @@ O fluxo de dados foi construído de forma modularizada, garantindo independênci
 ### Etapas Executadas:
 
 1. **Extração e Tratamento Macroeconômico (`src/etl_bacen.py`):**
+   
    - Ingestão das séries oficiais: 432 (Selic Meta % a.a.), 433 (IPCA Mensal %), 13522 (IPCA 12M %), 1 (Dólar PTAX Venda R$) e 24364 (IBC-Br dessazonalizado).
    - Harmonização das frequências diárias e mensais para fechamento mensal uniforme (`M`).
    - Cálculo da métrica financeira derivada do **Juro Real Ex-Post (% a.a.)** via Equação de Fisher:  
      $$r_{\text{real}} = \left(\frac{1 + \frac{\text{Selic}}{100}}{1 + \frac{\text{IPCA}_{12\text{M}}}{100}} - 1\right) \times 100$$
 
 2. **Extração e Modelagem de Mercado (`src/etl_b3.py`):**
+   
    - Requisições sequenciais com cabeçalhos HTTP (`User-Agent`) e retries para contornar bloqueios e rate limit da API externa.
    - Cálculo da rentabilidade comparativa normalizada (**Base 100** com $P_0 = 100$).
    - Computação da **Volatilidade Móvel Anualizada (% a.a.)** com janela de 21 pregões úteis ($N = 252$) e do **Drawdown Histórico (%)** frente ao pico histórico acumulado.
 
 3. **Extração e Padronização Contábil (`src/etl_cvm.py`):**
+   
    - Filtro das companhias de foco a partir do código numérico de registro CVM (`CD_CVM`), tratando transições de tickers de mercado (ex.: Embraer sob código CVM `018368`).
    - Ajuste de escala monetária com base na coluna `ESCALA_MOEDA` (multiplicação por 1.000 para valores reportados em 'MIL').
-   - Tratamento específico para instituições financeiras (Itaú Unibanco - COSIF/BACEN), cuja DRE consolida o resultado na conta `3.09` (Lucro/Prejuízo Consolidado do Período) em vez da conta industrial padrão `3.11`.
+   - Tratamento específico para instituições financeiras (Itaú Unibanco e Bradesco - COSIF/BACEN), cuja DRE consolida o resultado na conta `3.09` (Lucro/Prejuízo Consolidado do Período) em vez da conta industrial padrão `3.11`.
    - Cálculo padronizado dos indicadores contábeis: Margem Bruta, Margem EBIT, Margem Líquida, Liquidez Corrente e Retorno sobre o Patrimônio Líquido (ROE).
 
 ---
@@ -83,7 +85,7 @@ Abaixo estão detalhados os campos consolidados e modelados nas bases tratadas d
 ### 5.1. Base Macroeconômica (`data/processed/macro_bacen.csv`)
 
 | Coluna              | Tipo Primitivo | Descrição Financeira / Significado                                | Regra de Cálculo / Origem                                                                   |
-| :------------------ | :------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+|:------------------- |:-------------- |:----------------------------------------------------------------- |:------------------------------------------------------------------------------------------- |
 | `referencia_mensal` | `datetime`     | Data representativa do último dia da competência mensal analisada | Fechamento mensal da série                                                                  |
 | `selic_meta`        | `float`        | Taxa de juros básica da economia definida pelo COPOM (% a.a.)     | SGS Série 432 (último valor do mês)                                                         |
 | `ipca_mensal`       | `float`        | Variação percentual mensal do índice oficial de inflação (%)      | SGS Série 433                                                                               |
@@ -95,7 +97,7 @@ Abaixo estão detalhados os campos consolidados e modelados nas bases tratadas d
 ### 5.2. Base de Mercado de Ações (`data/processed/mercado_b3.csv`)
 
 | Coluna              | Tipo Primitivo | Descrição Financeira / Significado                        | Regra de Cálculo / Origem                                                       |
-| :------------------ | :------------- | :-------------------------------------------------------- | :------------------------------------------------------------------------------ |
+|:------------------- |:-------------- |:--------------------------------------------------------- |:------------------------------------------------------------------------------- |
 | `data`              | `date`         | Data do pregão útil de negociação                         | Índice temporal yfinance                                                        |
 | `ticker`            | `string`       | Código de negociação da ação na B3 (ex: WEGE3, PETR4)     | Mapeamento corporativo                                                          |
 | `setor`             | `string`       | Classificação setorial de atuação econômica               | Metadado padronizado                                                            |
@@ -113,7 +115,7 @@ Abaixo estão detalhados os campos consolidados e modelados nas bases tratadas d
 ### 5.3. Base de Demonstrações Contábeis (`data/processed/balancos_cvm.csv`)
 
 | Coluna               | Tipo Primitivo | Descrição Financeira / Significado                                   | Regra de Cálculo / Origem                                                        |
-| :------------------- | :------------- | :------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+|:-------------------- |:-------------- |:-------------------------------------------------------------------- |:-------------------------------------------------------------------------------- |
 | `ano`                | `integer`      | Ano fiscal de encerramento do exercício social (2021, 2022 ou 2023)  | `ANO_EXERCICIO` da DFP                                                           |
 | `ticker`             | `string`       | Ticker de negociação correspondente da companhia                     | Mapeamento corporativo                                                           |
 | `cd_cvm`             | `string`       | Código oficial de registro cadastral na CVM (6 dígitos)              | Campo `CD_CVM`                                                                   |
@@ -187,7 +189,7 @@ O setor de **Consumo Cíclico** (`RENT3`, `LREN3`) apresentou sensibilidade assi
 
 ### 9.1. Análise do Desempenho de Exportadoras
 
-O triênio 2021–2023 foi marcado por oscilações severas no câmbio comercial (Dólar PTAX médio entre **R$ 5,05 e R$ 5,39**). As companhias produtoras de commodities básicas:
+O triênio 2021–2023 foi marcado por oscilações severas no câmbio comercial (Dólar PTAX médio entre **R\$ 5,05 e R\$ 5,39**). As companhias produtoras de commodities básicas:
 
 - **Petróleo e Gás (`PETR4`, `PRIO3`):** Beneficiaram-se da conjugação entre cotação internacional do barril de petróleo Brent em patamares elevados e depreciação cambial, atingindo Margens EBIT operacionais superiores a $45\%$ e geração massiva de fluxo de caixa livre.
 - **Mineração e Siderurgia (`VALE3`, `GGBR4`):** Registraram receitas operacionais recordes em 2021 impulsionadas pelo ciclo global de commodities, mantendo índices de alavancagem financeira (Dívida Líquida / EBITDA) abaixo de $1,0x$.
@@ -200,7 +202,7 @@ O triênio 2021–2023 foi marcado por oscilações severas no câmbio comercial
 Confrontando os três vértices da Tríade, a carteira evidenciou clara segregação de resiliência:
 
 | Dimensão Analítica                     | Setores Vencedores                             | Setores Vulneráveis                               |
-| :------------------------------------- | :--------------------------------------------- | :------------------------------------------------ |
+|:-------------------------------------- |:---------------------------------------------- |:------------------------------------------------- |
 | **Solidez Contábil (CVM)**             | Bens Industriais, Energia Elétrica e Petróleo  | Consumo Cíclico e Varejo                          |
 | **Proteção de Margens (EBIT %)**       | Petróleo & Gás ($>40\%$) e Materiais ($>30\%$) | Consumo Cíclico ($<10\%$)                         |
 | **Retorno em Bolsa (B3)**              | Petróleo & Gás e Instituições Financeiras      | Varejo de Consumo e Construção                    |
@@ -253,6 +255,8 @@ O versionamento rigoroso foi executado com branches dedicadas preservadas no his
 
 O desenvolvimento seguiu a metodologia ágil Kanban com disciplina de **Trabalho em Progresso (WIP = 1)**, garantindo que nenhum card fosse iniciado antes da conclusão e validação do anterior.
 
+As tarefas no quadro Kanban correspondem aos braches abertos no Git para implementação das features.
+
 ![Quadro Kanban do Projeto](data/raw/trello_kanban.png)
 
 - **Quadro Trello:** https://trello.com/invite/b/6ad66e3ec1292230f0ed1436/ATTI89be60e163487560e45b035bc6b248610A1554C7/projeto-final-plataforma-financeira-triade-senai-sc
@@ -260,13 +264,13 @@ O desenvolvimento seguiu a metodologia ágil Kanban com disciplina de **Trabalho
 
 ---
 
-## 14. Instruções de Execução e Reproducibilidade
+## 14. Instruções de Execução e Reprodutibilidade
 
 ### 14.1. Clonagem e Configuração do Ambiente
 
 ```bash
 # Clonar o repositório
-git clone [https://github.com/SEU_USUARIO/SCTEC-Visualizacao-de-Dados-Projeto-Final.git](https://github.com/SEU_USUARIO/SCTEC-Visualizacao-de-Dados-Projeto-Final.git)
+git clone [https://github.com/orlandovcj/SCTEC-Visualizacao-de-Dados-Projeto-Final.git](https://github.com/orlandovcj/SCTEC-Visualizacao-de-Dados-Projeto-Final.git)
 cd SCTEC-Visualizacao-de-Dados-Projeto-Final
 
 # Criar e ativar o ambiente virtual Python (3.10+)
@@ -303,6 +307,12 @@ python src/etl_b3.py
 
 # Executar o ETL da CVM (Demonstrações Contábeis)
 python src/etl_cvm.py
+
+# Processar os arquivos para criação da base consolidada
+python src/integracao_triade.py
+
+# Carregar os dados para o Supebase
+python src/carregar_supabase.py
 
 # Executar a aplicação de BI e Análise
 streamlit run app/main_app.py
