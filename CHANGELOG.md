@@ -14,6 +14,24 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
+## [0.9.0] - 2026-10-26
+
+### Adicionado
+
+- **Design System Corporativo (Estilo ArchitectUI)**:
+  - Injeção de folha de estilos global em CSS (`aplicar_estilo_architectui()`) com paleta neutra executiva, tipografia sem serifa hierarquizada e remoção de artefatos visuais pesados.
+  - Estilização aprimorada dos blocos de KPIs (`st.metric`) com cantos arredondados (`border-radius: 10px`), bordas sutis (`#e2e8f0`), sombras dinâmicas de elevação (_box-shadow_) e efeito de flutuação ao passar o cursor (_hover effect_).
+  - Classes tipográficas dedicadas para cabeçalhos internos de painéis (`.card-header-title` e `.card-header-subtitle`), padronizando títulos e descrições técnicas de eixos e métricas.
+  - Função utilitária de formatação gráfica `formatar_figura_card()` para assegurar fundos transparentes (`paper_bgcolor` e `plot_bgcolor` em `rgba(0,0,0,0)`) e margens harmônicas em todas as instâncias do Plotly Express e Graph Objects.
+
+### Modificado
+
+- **Arquitetura de Apresentação em Cards Elevados**:
+  - Envelopamento de todas as visualizações das 4 abas analíticas (20 gráficos) e da tabela da base de exportação em contêineres nativos isolados (`st.container(border=True)`).
+  - Reestruturação das colunas nas abas da Tríade Integrada (Linha 4), Mercado de Ações (Linha 2), Balanços Contábeis (Linha 1) e Macroeconomia (Linha 3), garantindo que cada gráfico opere como um módulo independente e responsivo.
+  - Adaptação estética da _Matriz de Solvência e Risco Corporativo_ para integração aos novos cartões brancos com contraste otimizado sobre as áreas sombreadas de _Alerta de Insolvência_ e _Fortaleza Financeira_.
+  - Refatoração dos seletores de inspeção técnica (médias móveis da B3) para operar organicamente no interior dos cartões sem quebra de alinhamento.
+
 ## [0.8.0] - 2026-10-23
 
 ### Adicionado
@@ -24,7 +42,7 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
   - Semântica visual com cores invertidas para métricas de risco e inflação (IPCA 12M e Ativo de Menor Performance).
 - **Grade Oficial de Visualizações Analíticas Interativas (Plotly Express e Graph Objects)**:
   - **Linha 4 (Tríade Integrada):** Gráfico Multieixo Macro-Cambial, Base 100 na B3, Barras Contábeis CVM com ROE, Gráfico Combinado de Retorno Setorial vs. Selic Média Anual e Dispersão Fundamentalista (Margem EBIT vs. Retorno B3).
-  - **Linha 2 (Mercado de Ações B3):** Curvas Base 100 dinâmicas, Dispersão Risco $\times$ Retorno ponderada por volume, Histograma de Retornos com Boxplot marginal, Área de Drawdown acumulado e Gráfico Multilinha de Médias Móveis ($SMA_{21}$ e $SMA_{50}$) com seletor de inspeção técnica.
+  - **Linha 2 (Mercado de Ações B3):** Curvas Base 100 dinâmicas, Dispersão Risco $\times$ Retorno ponderada por volume, Histograma de Retornos com Boxplot marginal, Área de Drawdown acumulado e Gráfico Multilinha de Médias Móveis (SMA 21 e SMA 50) com seletor de inspeção técnica.
   - **Linha 1 (Balanços CVM):** Evolução histórica da Receita Líquida em barras agrupadas, Treemap setorial de representatividade de faturamento, Quadrante Estratégico Margem Líquida vs. ROE, Boxplot de Margem EBIT e **Matriz de Solvência e Risco Corporativo** com quadrantes sombreados (_Alerta de Insolvência_ e _Fortaleza Financeira_).
   - **Linha 3 (Macroeconomia BACEN):** Gráfico Combinado de Política Monetária (Selic, IPCA e Juro Real Ex-Post em barras), Linha Cambial PTAX com Média Histórica do período, Dispersão Dólar vs. IPCA dimensionado pela Selic, Linha do IBC-Br dessazonalizado e Heatmap de Correlação de Pearson com anotações automáticas.
 - **Filtros Múltiplos e Reatividade Avançada (`st.multiselect`)**:
