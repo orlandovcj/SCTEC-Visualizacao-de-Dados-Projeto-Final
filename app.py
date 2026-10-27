@@ -24,96 +24,232 @@ st.set_page_config(
 )
 
 # -----------------------------------------------------------------------------
-# 2. DESIGN SYSTEM: CSS CORPORATIVO COM CARDS ELEVADOS (ARCHITECTUI)
+# 2. DESIGN SYSTEM: MODERN SAAS INDIGO & MAGENTA (REF. VISUAL)
 # -----------------------------------------------------------------------------
 def aplicar_estilo_architectui():
     st.markdown(
         """
         <style>
-        /* Fundo geral em cinza suave executivo */
+        /* 1. FUNDO GERAL DA APLICAÇÃO */
         .stApp {
-            background-color: #f8f9fa;
+            background-color: #f4f6fc;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Sidebar limpa */
+        /* -------------------------------------------------------------
+           SIDEBAR: FUNDO VIOLETA E CONTRASTE DE TEXTOS
+        ------------------------------------------------------------- */
         [data-testid="stSidebar"] {
-            background-color: #ffffff;
-            border-right: 1px solid #e9ecef;
+            background: linear-gradient(180deg, #5b4bf0 0%, #6c5ce7 100%) !important;
+            border-right: none !important;
         }
 
-        /* 1. CARDS DE KPIS (st.metric) */
-        div[data-testid="stMetric"] {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 16px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        /* Textos descritivos gerais da sidebar em branco */
+        [data-testid="stSidebar"] h1, 
+        [data-testid="stSidebar"] h2, 
+        [data-testid="stSidebar"] h3,
+        [data-testid="stSidebar"] label,
+        [data-testid="stSidebar"] .stMarkdown p {
+            color: #ffffff !important;
         }
 
-        div[data-testid="stMetric"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        /* -------------------------------------------------------------
+           1. BOTÃO DE RECOLHIMENTO DA SIDEBAR (SUPERIOR DIREITO)
+        ------------------------------------------------------------- */
+        [data-testid="stSidebarCollapseButton"] button {
+            background-color: #ffffff !important;
+            border-radius: 8px !important;
+            border: none !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
         }
 
-        div[data-testid="stMetric"] label {
-            font-size: 0.82rem !important;
+        /* Força o ícone SVG da seta a ficar em violeta escuro / preto */
+        [data-testid="stSidebarCollapseButton"] button svg {
+            fill: #2d1374 !important;
+            stroke: #2d1374 !important;
+            color: #2d1374 !important;
+        }
+
+        /* -------------------------------------------------------------
+           2. BOTÃO DE REDEFINIÇÃO DE FILTROS (INFERIOR)
+        ------------------------------------------------------------- */
+        [data-testid="stSidebar"] div.stButton > button {
+            background-color: #ffffff !important;
+            border-radius: 8px !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        /* Força todo o conteúdo interno do botão (texto e ícones) para violeta escuro */
+        [data-testid="stSidebar"] div.stButton > button * {
+            color: #2d1374 !important; /* Violeta escuro executivo */
+            font-weight: 700 !important;
+        }
+
+        /* Efeito Hover ao passar o mouse */
+        [data-testid="stSidebar"] div.stButton > button:hover {
+            background-color: #f4f2ff !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        [data-testid="stSidebar"] div.stButton > button:hover * {
+            color: #1b0947 !important;
+        }
+
+        /* -------------------------------------------------------------
+           STATUS DE CONEXÃO DA BASE (st.success / st.alert na Sidebar)
+        ------------------------------------------------------------- */
+        [data-testid="stSidebar"] [data-testid="stAlert"] {
+            background-color: rgba(255, 255, 255, 0.12) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            border-radius: 10px !important;
+            padding: 10px 14px !important;
+        }
+
+        /* Força todos os textos e ícones internos do alert a ficarem brancos */
+        [data-testid="stSidebar"] [data-testid="stAlert"] * {
+            color: #ffffff !important;
             font-weight: 600 !important;
-            color: #64748b !important;
+        }
+
+        /* Garante que o ícone de check/info também fique branco */
+        [data-testid="stSidebar"] [data-testid="stAlert"] svg {
+            fill: #ffffff !important;
+            stroke: #ffffff !important;
+        }
+
+        /* -------------------------------------------------------------
+           3. CARDS DE KPIS (st.metric) - DEFINIÇÃO BASE
+        ------------------------------------------------------------- */
+        /* Estilização estrutural comum (sem forçar fundo branco) */
+        [data-testid="stMetric"] {
+            padding: 16px 20px !important;
+            border-radius: 14px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+            transition: all 0.25s ease !important;
+        }
+
+        [data-testid="stMetric"]:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 10px 20px rgba(91, 75, 240, 0.08) !important;
+        }
+
+        /* Tipografia dos rótulos e números */
+        [data-testid="stMetric"] label,
+        [data-testid="stMetric"] label p {
+            font-size: 0.78rem !important;
+            font-weight: 700 !important;
+            color: #475569 !important;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
-            font-size: 1.80rem !important;
-            font-weight: 700 !important;
-            color: #1e293b !important;
+        [data-testid="stMetric"] [data-testid="stMetricValue"],
+        [data-testid="stMetric"] [data-testid="stMetricValue"] > div {
+            font-size: 1.85rem !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
         }
 
-        /* 2. CARDS DE GRÁFICOS (st.container com border=True) */
+        /* -------------------------------------------------------------
+           CORES PASTÉIS POR COLUNA (SELEÇÃO DUPLA: stColumn e column)
+        ------------------------------------------------------------- */
+
+        /* CARD 1: Lavanda / Índigo Pastel (ex: Selic) */
+        [data-testid="stHorizontalBlock"] > div:nth-child(1) [data-testid="stMetric"],
+        [data-testid="stColumn"]:nth-child(1) [data-testid="stMetric"],
+        div[data-testid="column"]:nth-of-type(1) [data-testid="stMetric"] {
+            background: #f3f0ff !important;
+            background-color: #f3f0ff !important;
+            border: 1px solid #dcd3ff !important;
+            border-left: 6px solid #6c5ce7 !important;
+        }
+
+        /* CARD 2: Rosa / Magenta Pastel Suave (ex: IPCA) */
+        [data-testid="stHorizontalBlock"] > div:nth-child(2) [data-testid="stMetric"],
+        [data-testid="stColumn"]:nth-child(2) [data-testid="stMetric"],
+        div[data-testid="column"]:nth-of-type(2) [data-testid="stMetric"] {
+            background: #fff0f6 !important;
+            background-color: #fff0f6 !important;
+            border: 1px solid #ffd0e2 !important;
+            border-left: 6px solid #e84393 !important;
+        }
+
+        /* CARD 3: Azul Céu Pastel (ex: Receita Total) */
+        [data-testid="stHorizontalBlock"] > div:nth-child(3) [data-testid="stMetric"],
+        [data-testid="stColumn"]:nth-child(3) [data-testid="stMetric"],
+        div[data-testid="column"]:nth-of-type(3) [data-testid="stMetric"] {
+            background: #f0f7ff !important;
+            background-color: #f0f7ff !important;
+            border: 1px solid #cfe2fe !important;
+            border-left: 6px solid #0984e3 !important;
+        }
+
+        /* CARD 4: Verde Menta Pastel (ex: Lucro Líquido) */
+        [data-testid="stHorizontalBlock"] > div:nth-child(4) [data-testid="stMetric"],
+        [data-testid="stColumn"]:nth-child(4) [data-testid="stMetric"],
+        div[data-testid="column"]:nth-of-type(4) [data-testid="stMetric"] {
+            background: #f0fdf4 !important;
+            background-color: #f0fdf4 !important;
+            border: 1px solid #c7f3d6 !important;
+            border-left: 6px solid #10b981 !important;
+        }
+
+        /* 4. CARDS DE GRÁFICOS (st.container com border=True) */
         div[data-testid="stVerticalBlockBorderWrapper"] > div {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0 !important;
-            border-radius: 10px !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            padding: 20px !important;
-            margin-bottom: 16px;
+            background-color: #ffffff !important;
+            border: 1px solid #eef2f9 !important;
+            border-radius: 14px !important;
+            box-shadow: 0 6px 16px rgba(108, 92, 231, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+            padding: 22px !important;
+            margin-bottom: 18px;
         }
 
         /* Títulos internos dos Cards */
         .card-header-title {
             font-size: 1.05rem;
             font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 2px;
+            color: #1a1e2d;
+            margin-bottom: 3px;
         }
 
         .card-header-subtitle {
             font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 14px;
+            color: #7d879c;
+            margin-bottom: 16px;
         }
 
-        /* Abas Corporativas */
+        /* 5. ABAS NAVEGACIONAIS CORPORATIVAS */
         .stTabs [data-baseweb="tab-list"] {
-            gap: 8px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 4px;
+            gap: 10px;
+            border-bottom: 2px solid #e5e9f2;
+            padding-bottom: 6px;
         }
 
         .stTabs [data-baseweb="tab"] {
-            border-radius: 6px 6px 0 0;
-            padding: 10px 18px;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 20px;
             font-weight: 600;
-            color: #64748b;
+            color: #7d879c;
             background-color: transparent;
         }
 
         .stTabs [aria-selected="true"] {
             background-color: #ffffff !important;
-            color: #2563eb !important;
-            border-bottom: 3px solid #2563eb !important;
+            color: #5b4bf0 !important;
+            border-bottom: 3px solid #5b4bf0 !important;
+            box-shadow: 0 4px 8px rgba(91, 75, 240, 0.08);
+        }
+
+        /* Botão Redefinir */
+        [data-testid="stSidebar"] button {
+            background-color: #ffffff !important;
+            color: #5b4bf0 !important;
+            border-radius: 8px !important;
+            font-weight: 700 !important;
+            border: none !important;
         }
         </style>
         """,
@@ -123,11 +259,11 @@ def aplicar_estilo_architectui():
 aplicar_estilo_architectui()
 
 def formatar_figura_card(fig):
-    """Garante fundo transparente e margens harmônicas dentro do contêiner do card."""
+    """Garante fundo transparente, fontes executivas e cores de eixos integradas."""
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#64748b", family="Segoe UI, sans-serif"),
+        font=dict(color="#7d879c", family="Segoe UI, sans-serif"),
         margin=dict(t=35, b=30, l=30, r=30)
     )
     return fig
@@ -180,7 +316,6 @@ with st.sidebar:
     anos_selecionados = st.multiselect(
         "Exercício Fiscal (Ano):",
         options=ANOS_DISPONIVEIS,
-        default=st.session_state.filtro_ano,
         key="filtro_ano",
         placeholder="Todos os anos"
     )
@@ -188,7 +323,6 @@ with st.sidebar:
     setores_selecionados = st.multiselect(
         "Setores Econômicos:",
         options=SETORES_DISPONIVEIS,
-        default=st.session_state.filtro_setor,
         key="filtro_setor",
         placeholder="Todos os setores"
     )
@@ -208,13 +342,12 @@ with st.sidebar:
     tickers_selecionados = st.multiselect(
         "Ativos / Companhias:",
         options=tickers_disponiveis_reativos,
-        default=st.session_state.filtro_ticker,
         key="filtro_ticker",
         placeholder="Todos os ativos"
     )
 
     st.markdown("---")
-    st.button("🔄 Redefinir Filtros", on_click=resetar_filtros, use_container_width=True)
+    st.button("🔄 Redefinir Filtros", on_click=resetar_filtros, width="stretch")
     
     st.markdown("---")
     st.caption("📡 **Camada de Dados Ativa:**")
@@ -251,23 +384,16 @@ if st.session_state.filtro_ticker:
 # 6. CABEÇALHO EXECUTIVO
 # -----------------------------------------------------------------------------
 st.title("🏛️ Plataforma Financeira Integrada")
-st.markdown(
-    """
-    Solução analítica corporativa estruturada em conformidade com as quatro linhas temáticas do edital.
-    Cada aba apresenta seus **KPIs estratégicos dedicados**, visualizações analíticas em **cards padronizados** 
-    e evidências empíricas voltadas à tomada de decisão de investimento e avaliação de risco corporativo.
-    """
-)
 st.markdown("---")
 
 # -----------------------------------------------------------------------------
 # 7. ESTRUTURAÇÃO MODULAR EM ABAS
 # -----------------------------------------------------------------------------
 tab_l4, tab_l2, tab_l1, tab_l3, tab_exp = st.tabs([
-    "🌐 Linha 4: Tríade Integrada",
-    "📈 Linha 2: Mercado de Ações (B3)",
-    "🏢 Linha 1: Balanços Contábeis (CVM)",
-    "🏦 Linha 3: Macroeconomia (BACEN)",
+    "🌐 Análise Integrada",
+    "📈 Performance de Mercado",
+    "🏢 Análise Fundamentalista",
+    "🏦 Análise Macroeconômica",
     "💾 Base de Dados & Exportação"
 ])
 
@@ -275,7 +401,7 @@ tab_l4, tab_l2, tab_l1, tab_l3, tab_exp = st.tabs([
 # ABA 1: LINHA 4 - PLATAFORMA FINANCEIRA INTEGRADA (TRÍADE)
 # =============================================================================
 with tab_l4:
-    st.subheader("🌐 Linha 4: Plataforma Financeira Integrada (Tríade: Macro + Mercado + Balanços)")
+    st.subheader("🌐 Análise Financeira Integrada (Tríade: Macro + Mercado + Balanços)")
     st.caption("Visão multivariada integrando conjuntura econômica (BACEN), precificação em bolsa (B3) e balanços (CVM).")
 
     # 1. GRADE OFICIAL DE KPIS ESTRATÉGICOS (LINHA 4)
@@ -302,12 +428,24 @@ with tab_l4:
 
     delta_rec_kpi = None
     delta_lucro_kpi = None
-    rotulo_contabil_kpi = "Consolidado Triênio"
+    # Determinação dinâmica do rótulo da Tríade
+    if not df_balancos_f.empty:
+        ano_min_df = int(df_balancos_f["ano"].min())
+        ano_max_df = int(df_balancos_f["ano"].max())
+        qtd_anos = df_balancos_f["ano"].nunique()
+        
+        if qtd_anos > 1:
+            rotulo_contabil_kpi = f"Consolidado ({ano_min_df}-{ano_max_df})"
+        else:
+            rotulo_contabil_kpi = f"Exercício {ano_max_df}"
+    else:
+        rotulo_contabil_kpi = "Sem Registros"
 
     if len(st.session_state.filtro_ano) == 1:
         ano_sel_int = int(st.session_state.filtro_ano[0])
-        if ano_sel_int > 2021:
-            ano_ant_int = ano_sel_int - 1
+        ano_ant_int = ano_sel_int - 1
+
+        if ano_ant_int in df_balancos["ano"].values:
             df_ant_kpi = df_balancos[df_balancos["ano"] == ano_ant_int].copy()
             if st.session_state.filtro_setor:
                 df_ant_kpi = df_ant_kpi[df_ant_kpi["setor"].isin(st.session_state.filtro_setor)]
@@ -323,9 +461,7 @@ with tab_l4:
                 delta_lucro_kpi = ((lucro_total_bi - lucro_ant_bi) / abs(lucro_ant_bi)) * 100
             rotulo_contabil_kpi = f"vs. {ano_ant_int}"
         else:
-            rotulo_contabil_kpi = "Início da Série (2021)"
-    elif len(st.session_state.filtro_ano) > 1:
-        rotulo_contabil_kpi = "Consolidado Seleção"
+            rotulo_contabil_kpi = f"Marco Base ({ano_sel_int})"
 
     k1, k2, k3, k4 = st.columns(4)
 
@@ -409,7 +545,7 @@ with tab_l4:
         fig_multieixo.update_yaxes(title_text="Câmbio Comercial (R$)", secondary_y=True)
         
         fig_multieixo = formatar_figura_card(fig_multieixo)
-        st.plotly_chart(fig_multieixo, use_container_width=True)
+        st.plotly_chart(fig_multieixo, width="stretch")
 
     col_t1, col_t2 = st.columns(2)
 
@@ -436,47 +572,90 @@ with tab_l4:
                 fig_base100_triade.update_layout(hovermode="x unified", legend=dict(orientation="h", y=-0.2))
                 
                 fig_base100_triade = formatar_figura_card(fig_base100_triade)
-                st.plotly_chart(fig_base100_triade, use_container_width=True)
+                st.plotly_chart(fig_base100_triade, width="stretch")
             else:
                 st.info("Nenhum dado disponível para os filtros selecionados.")
 
     with col_t2:
-        # Card 3: Balanços CVM - Lucro Líquido vs ROE
+        # Card 3: Balanços CVM - Lucro Líquido vs. ROE (Refatorado para Alta Legibilidade)
         with st.container(border=True):
-            st.markdown('<div class="card-header-title">3. Balanços CVM: Lucro Líquido vs. ROE</div>', unsafe_allow_html=True)
-            st.markdown('<div class="card-header-subtitle">Lucro consolidado auditado (R$ Bi) e taxa de retorno sobre o PL</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-title">3. Balanços CVM: Lucro Líquido vs. ROE Médio</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-subtitle">Lucro consolidado auditado (barras) e rentabilidade sobre o PL (pontos)</div>', unsafe_allow_html=True)
 
-            df_bal_t = df_balancos_f.copy()
-            df_bal_t["lucro_bi"] = df_bal_t["lucro_liquido"] / 1e9
+            if df_balancos_f.empty:
+                st.info("Nenhum dado contábil disponível para os filtros selecionados.")
+            else:
+                # 1. Agregação rigorosa por companhia para eliminar repetições de anos
+                df_bal_resumo = df_balancos_f.groupby("ticker").agg(
+                    lucro_total=("lucro_liquido", "sum"),
+                    roe_medio=("roe", "mean")
+                ).reset_index()
 
-            fig_barras_cvm = make_subplots(specs=[[{"secondary_y": True}]])
-            fig_barras_cvm.add_trace(
-                go.Bar(
-                    x=df_bal_t["ticker"],
-                    y=df_bal_t["lucro_bi"],
-                    name="Lucro Líquido (R$ Bi)",
-                    marker_color="#2ecc71"
-                ),
-                secondary_y=False
-            )
-            fig_barras_cvm.add_trace(
-                go.Scatter(
-                    x=df_bal_t["ticker"],
-                    y=df_bal_t["roe"],
-                    name="ROE (%)",
-                    mode="lines+markers",
-                    line=dict(color="#8e44ad", width=2),
-                    marker=dict(size=7)
-                ),
-                secondary_y=True
-            )
-            fig_barras_cvm.add_hline(y=13.75, line_dash="dot", line_color="orange", secondary_y=True, annotation_text="Benchmark Selic Final")
-            fig_barras_cvm.update_layout(legend=dict(orientation="h", y=-0.2))
-            fig_barras_cvm.update_yaxes(title_text="Lucro Líquido (R$ Bi)", secondary_y=False)
-            fig_barras_cvm.update_yaxes(title_text="ROE (%)", secondary_y=True)
-            
-            fig_barras_cvm = formatar_figura_card(fig_barras_cvm)
-            st.plotly_chart(fig_barras_cvm, use_container_width=True)
+                # Escala em Bilhões de R$
+                df_bal_resumo["lucro_bi"] = (df_bal_resumo["lucro_total"] / 1e9).round(2)
+                df_bal_resumo["roe_medio"] = df_bal_resumo["roe_medio"].round(2)
+
+                # 2. Ordenação pelo volume de Lucro Líquido (do maior para o menor)
+                df_bal_resumo = df_bal_resumo.sort_values("lucro_bi", ascending=False)
+
+                # 3. Criação da figura com eixo duplo
+                fig_barras_cvm = make_subplots(specs=[[{"secondary_y": True}]])
+
+                # Série 1: Lucro Líquido em Barras (Eixo Primário Y - Esquerda)
+                fig_barras_cvm.add_trace(
+                    go.Bar(
+                        x=df_bal_resumo["ticker"],
+                        y=df_bal_resumo["lucro_bi"],
+                        name="Lucro Líquido (R$ Bi)",
+                        marker_color="#6c5ce7",
+                        opacity=0.88,
+                        text=df_bal_resumo["lucro_bi"].apply(lambda v: f"{v:,.1f}"),
+                        textposition="outside"
+                    ),
+                    secondary_y=False
+                )
+
+                # Série 2: ROE Médio em Marcadores Dispersos / Sem linha contínua (Eixo Y Secundário - Direita)
+                # Diamantes de ROE em Magenta vibrante
+                fig_barras_cvm.add_trace(
+                    go.Scatter(
+                        x=df_bal_resumo["ticker"],
+                        y=df_bal_resumo["roe_medio"],
+                        name="ROE Médio (%)",
+                        mode="markers+text",
+                        marker=dict(size=11, color="#e84393", symbol="diamond", line=dict(width=1.5, color="#ffffff")),
+                        text=df_bal_resumo["roe_medio"].apply(lambda v: f"{v:.1f}%"),
+                        textposition="top center",
+                        textfont=dict(size=10, color="#e84393")
+                    ),
+                    secondary_y=True
+                )
+
+                # Linha de Benchmark: Selic Final de 13.75% no eixo secundário
+                fig_barras_cvm.add_hline(
+                    y=13.75,
+                    line_dash="dot",
+                    line_color="#e67e22",
+                    secondary_y=True,
+                    annotation_text="Benchmark Selic (13.75%)",
+                    annotation_position="bottom left"
+                )
+
+                # Configuração do Layout Corporativo
+                fig_barras_cvm.update_layout(
+                    legend=dict(orientation="h", yanchor="bottom", y=1.05, xanchor="right", x=1.0),
+                    margin=dict(t=50, b=40, l=40, r=40),
+                    hovermode="x unified",
+                    barmode="group"
+                )
+
+                # Ajuste dos eixos
+                fig_barras_cvm.update_yaxes(title_text="Lucro Líquido (R$ Bi)", secondary_y=False, showgrid=True, gridcolor="#f1f5f9")
+                fig_barras_cvm.update_yaxes(title_text="ROE Médio (%)", secondary_y=True, showgrid=False)
+                fig_barras_cvm.update_xaxes(title_text="", type="category")
+
+                fig_barras_cvm = formatar_figura_card(fig_barras_cvm)
+                st.plotly_chart(fig_barras_cvm, width="stretch")
 
     col_t3, col_t4 = st.columns(2)
 
@@ -498,7 +677,7 @@ with tab_l4:
             df_selic_linha = df_triade.groupby("ano")["selic_media_ano"].first().reset_index()
 
             fig_barras_cruzadas = make_subplots(specs=[[{"secondary_y": True}]])
-            paleta_setores = px.colors.qualitative.Safe
+            paleta_setores = ["#6c5ce7", "#e84393", "#0984e3", "#a29bfe", "#fd79a8"]
 
             for i, setor_nome in enumerate(df_setor_ano["setor"].unique()):
                 df_subset = df_setor_ano[df_setor_ano["setor"] == setor_nome]
@@ -520,11 +699,11 @@ with tab_l4:
                     y=df_selic_linha["selic_media_ano"],
                     name="Taxa Selic Média",
                     mode="lines+markers+text",
-                    line=dict(color="#FF8C00", width=3),
-                    marker=dict(size=9, color="#FF8C00"),
+                    line=dict(color="#e84393", width=3),
+                    marker=dict(size=9, color="#e84393"),
                     text=df_selic_linha["selic_media_ano"].apply(lambda v: f"{v:.1f}%"),
                     textposition="top center",
-                    textfont=dict(color="#FF8C00", size=11)
+                    textfont=dict(color="#e84393", size=11, family="Segoe UI")
                 ),
                 secondary_y=True
             )
@@ -540,7 +719,7 @@ with tab_l4:
             fig_barras_cruzadas.update_xaxes(type="category", title_text="Exercício Fiscal")
 
             fig_barras_cruzadas = formatar_figura_card(fig_barras_cruzadas)
-            st.plotly_chart(fig_barras_cruzadas, use_container_width=True)
+            st.plotly_chart(fig_barras_cruzadas, width="stretch")
 
     with col_t4:
         # Card 5: Dispersão Fundamentalista Tríade
@@ -562,7 +741,7 @@ with tab_l4:
             fig_disp_triade.add_vline(x=0, line_dash="dash", line_color="gray")
             
             fig_disp_triade = formatar_figura_card(fig_disp_triade)
-            st.plotly_chart(fig_disp_triade, use_container_width=True)
+            st.plotly_chart(fig_disp_triade, width="stretch")
 
     st.info(
         """
@@ -578,7 +757,7 @@ with tab_l4:
 # ABA 2: LINHA 2 - ANÁLISE TÉCNICA E PERFORMANCE DE MERCADO DE AÇÕES (B3)
 # =============================================================================
 with tab_l2:
-    st.subheader("📈 Linha 2: Análise Técnica e Performance de Mercado de Ações (B3)")
+    st.subheader("📈 Análise Técnica e Performance de Mercado de Ações (B3)")
     st.caption("Métricas quantitativas de retorno, volatilidade realizada, risco de cauda e médias móveis.")
 
     # -------------------------------------------------------------------------
@@ -678,7 +857,7 @@ with tab_l2:
             fig_base100.update_layout(hovermode="x unified", legend=dict(orientation="h", y=-0.2))
             
             fig_base100 = formatar_figura_card(fig_base100)
-            st.plotly_chart(fig_base100, use_container_width=True)
+            st.plotly_chart(fig_base100, width="stretch")
 
         col_g1, col_g2 = st.columns(2)
 
@@ -707,7 +886,7 @@ with tab_l2:
                 fig_risco_retorno.update_traces(textposition="top center")
                 
                 fig_risco_retorno = formatar_figura_card(fig_risco_retorno)
-                st.plotly_chart(fig_risco_retorno, use_container_width=True)
+                st.plotly_chart(fig_risco_retorno, width="stretch")
 
         with col_g2:
             # Card 3: Histograma com Boxplot Marginal
@@ -730,76 +909,93 @@ with tab_l2:
                 fig_hist.update_layout(bargap=0.05, legend=dict(orientation="h", y=-0.2))
                 
                 fig_hist = formatar_figura_card(fig_hist)
-                st.plotly_chart(fig_hist, use_container_width=True)
+                st.plotly_chart(fig_hist, width="stretch")
 
-        col_g3, col_g4 = st.columns(2)
+        #col_g3, col_g4 = st.columns(2)
 
-        with col_g3:
-            # Card 4: Área de Drawdown Histórico
-            with st.container(border=True):
-                st.markdown('<div class="card-header-title">4. Gráfico de Área de Drawdown Histórico (%)</div>', unsafe_allow_html=True)
-                st.markdown('<div class="card-header-subtitle">Queda percentual acumulada a partir do topo histórico (High Watermark) ao longo do tempo</div>', unsafe_allow_html=True)
+        # Card 4: Área de Drawdown Histórico
+        with st.container(border=True):
+            st.markdown('<div class="card-header-title">4. Gráfico de Área de Drawdown Histórico (%)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-subtitle">Queda percentual acumulada a partir do topo histórico (High Watermark) ao longo do tempo</div>', unsafe_allow_html=True)
 
-                fig_drawdown = px.area(
-                    df_mercado_f,
-                    x="data",
-                    y="drawdown",
-                    color="ticker",
-                    labels={"drawdown": "Drawdown (%)", "data": "Pregão"}
+            fig_drawdown = px.area(
+                df_mercado_f,
+                x="data",
+                y="drawdown",
+                color="ticker",
+                labels={"drawdown": "Drawdown (%)", "data": "Pregão"}
+            )
+            fig_drawdown.update_layout(legend=dict(orientation="h", y=-0.2))
+             
+            fig_drawdown = formatar_figura_card(fig_drawdown)
+            st.plotly_chart(fig_drawdown, width="stretch")
+
+        # Card 5: Candlestick com Médias Móveis de Tendência (SMA 21 e SMA 50)
+        with st.container(border=True):
+            st.markdown('<div class="card-header-title">5. Dinâmica de Preços (Candlestick) e Médias Móveis</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-subtitle">Velas diárias (Abertura, Máxima, Mínima, Fechamento) com sobreposição da SMA 21 e SMA 50</div>', unsafe_allow_html=True)
+
+            if len(st.session_state.filtro_ticker) == 1:
+                ativo_inspecao = st.session_state.filtro_ticker[0]
+            else:
+                opcoes_ativos_inspecao = df_resumo_ativos["ticker"].tolist()
+                ativo_inspecao = st.selectbox(
+                    "Selecione o ativo para inspeção técnica:",
+                    options=opcoes_ativos_inspecao,
+                    index=0,
+                    key="seletor_ativo_sma"
                 )
-                fig_drawdown.update_layout(legend=dict(orientation="h", y=-0.2))
+
+            df_sma = df_mercado[df_mercado["ticker"] == ativo_inspecao].copy().sort_values("data")
+            df_sma["sma_21"] = df_sma["preco_fechamento"].rolling(window=21).mean()
+            df_sma["sma_50"] = df_sma["preco_fechamento"].rolling(window=50).mean()
+
+            if st.session_state.filtro_ano:
+                df_sma = df_sma[df_sma["data"].dt.year.isin(st.session_state.filtro_ano)]
+
+            fig_sma = go.Figure()
+
+            # Rastro 1: Candlestick (OHLC)
+            fig_sma.add_trace(go.Candlestick(
+                x=df_sma["data"],
+                open=df_sma["abertura"],
+                high=df_sma["maxima"],
+                low=df_sma["minima"],
+                close=df_sma["preco_fechamento"],
+                name="Candlestick (OHLC)",
+                increasing_line_color="#27ae60",
+                decreasing_line_color="#e74c3c"
+            ))
+
+            # Rastro 2: Média Móvel Simples de 21 pregões (Curto Prazo)
+            fig_sma.add_trace(go.Scatter(
+                x=df_sma["data"],
+                y=df_sma["sma_21"],
+                name="SMA 21 (Curto Prazo)",
+                mode="lines",
+                line=dict(color="#f39c12", width=2)
+            ))
+
+            # Rastro 3: Média Móvel Simples de 50 pregões (Médio Prazo)
+            fig_sma.add_trace(go.Scatter(
+                x=df_sma["data"],
+                y=df_sma["sma_50"],
+                name="SMA 50 (Médio Prazo)",
+                mode="lines",
+                line=dict(color="#2980b9", width=2, dash="dash")
+            ))
+
+            fig_sma.update_layout(
+                title=f"Inspeção Técnica de Preço e Médias: {ativo_inspecao}",
+                legend=dict(orientation="h", y=-0.2),
+                xaxis_title="Pregão",
+                yaxis_title="Preço (R$)",
+                hovermode="x unified",
+                xaxis_rangeslider_visible=False  # Desativa o rangeslider para economizar área útil no card
+            )
                 
-                fig_drawdown = formatar_figura_card(fig_drawdown)
-                st.plotly_chart(fig_drawdown, use_container_width=True)
-
-        with col_g4:
-            # Card 5: Multilinha de Médias Móveis (SMA 21 e SMA 50)
-            with st.container(border=True):
-                st.markdown('<div class="card-header-title">5. Médias Móveis de Tendência (SMA 21 e SMA 50)</div>', unsafe_allow_html=True)
-                st.markdown('<div class="card-header-subtitle">Preço de Fechamento com sobreposição de médias móveis simples para inspeção técnica</div>', unsafe_allow_html=True)
-
-                if len(st.session_state.filtro_ticker) == 1:
-                    ativo_inspecao = st.session_state.filtro_ticker[0]
-                else:
-                    opcoes_ativos_inspecao = df_resumo_ativos["ticker"].tolist()
-                    ativo_inspecao = st.selectbox(
-                        "Selecione o ativo para inspeção:",
-                        options=opcoes_ativos_inspecao,
-                        index=0,
-                        key="seletor_ativo_sma"
-                    )
-
-                df_sma = df_mercado[df_mercado["ticker"] == ativo_inspecao].copy().sort_values("data")
-                df_sma["sma_21"] = df_sma["preco_fechamento"].rolling(window=21).mean()
-                df_sma["sma_50"] = df_sma["preco_fechamento"].rolling(window=50).mean()
-
-                if st.session_state.filtro_ano:
-                    df_sma = df_sma[df_sma["data"].dt.year.isin(st.session_state.filtro_ano)]
-
-                fig_sma = go.Figure()
-                fig_sma.add_trace(go.Scatter(
-                    x=df_sma["data"], y=df_sma["preco_fechamento"],
-                    name="Preço Fechamento", mode="lines", line=dict(color="#2c3e50", width=1.5)
-                ))
-                fig_sma.add_trace(go.Scatter(
-                    x=df_sma["data"], y=df_sma["sma_21"],
-                    name="SMA 21 (Curto Prazo)", mode="lines", line=dict(color="#e67e22", width=2)
-                ))
-                fig_sma.add_trace(go.Scatter(
-                    x=df_sma["data"], y=df_sma["sma_50"],
-                    name="SMA 50 (Médio Prazo)", mode="lines", line=dict(color="#2980b9", width=2, dash="dash")
-                ))
-
-                fig_sma.update_layout(
-                    title=f"Ativo Inspecionado: {ativo_inspecao}",
-                    legend=dict(orientation="h", y=-0.2),
-                    xaxis_title="Pregão",
-                    yaxis_title="Preço Nominal (R$)",
-                    hovermode="x unified"
-                )
-                
-                fig_sma = formatar_figura_card(fig_sma)
-                st.plotly_chart(fig_sma, use_container_width=True)
+            fig_sma = formatar_figura_card(fig_sma)
+            st.plotly_chart(fig_sma, width="stretch")
 
         # ---------------------------------------------------------------------
         # 4. STORYTELLING ANALÍTICO
@@ -817,29 +1013,41 @@ with tab_l2:
 # ABA 3: LINHA 1 - ANÁLISE FUNDAMENTALISTA CORPORATIVA (CVM / DFP)
 # =============================================================================
 with tab_l1:
-    st.subheader("🏢 Linha 1: Análise Fundamentalista Corporativa (CVM / DFP)")
+    st.subheader("🏢 Análise Fundamentalista Corporativa (CVM / DFP)")
     st.caption("Demonstrações financeiras consolidadas auditadas: rentabilidade, eficiência operacional e solvência.")
 
     # -------------------------------------------------------------------------
-    # 1. CÁLCULO DE KPIS COM DELTA ANUAL DINÂMICO
+    # 1. CÁLCULO DE KPIS COM DELTA DINÂMICO E RÓTULO TEMPORAL REATIVO
     # -------------------------------------------------------------------------
     rec_atual_bi = df_balancos_f["receita_liquida"].sum() / 1e9
     lucro_atual_bi = df_balancos_f["lucro_liquido"].sum() / 1e9
     roe_medio_l1 = df_balancos_f["roe"].mean() if not df_balancos_f.empty else 0.0
     
-    # Base não financeira para métricas de solvência fabril/comercial
     df_nao_fin_f = df_balancos_f[df_balancos_f["setor"] != "Financeiro"]
     liq_corr_media = df_nao_fin_f["liquidez_corrente"].mean() if not df_nao_fin_f.empty else 0.0
 
-    # Lógica de apuração do Delta Anual (t vs t-1)
     delta_rec_pct = None
     delta_lucro_pct = None
-    rotulo_delta = "Consolidado Triênio"
 
+    # Determinação dinâmica do rótulo baseada no intervalo real dos dados filtrados
+    if not df_balancos_f.empty:
+        ano_min_df = int(df_balancos_f["ano"].min())
+        ano_max_df = int(df_balancos_f["ano"].max())
+        qtd_anos = df_balancos_f["ano"].nunique()
+        
+        if qtd_anos > 1:
+            rotulo_delta = f"Consolidado ({ano_min_df}-{ano_max_df})"
+        else:
+            rotulo_delta = f"Exercício {ano_max_df}"
+    else:
+        rotulo_delta = "Sem Registros"
+
+    # Cálculo da variação percentual (delta t vs t-1) apenas se 1 ano estiver filtrado
     if len(st.session_state.filtro_ano) == 1:
         ano_selecionado = int(st.session_state.filtro_ano[0])
-        if ano_selecionado > 2021:
-            ano_anterior = ano_selecionado - 1
+        ano_anterior = ano_selecionado - 1
+        
+        if ano_anterior in df_balancos["ano"].values:
             df_comp_ant = df_balancos[df_balancos["ano"] == ano_anterior].copy()
 
             if st.session_state.filtro_setor:
@@ -857,9 +1065,7 @@ with tab_l1:
             
             rotulo_delta = f"vs. {ano_anterior}"
         else:
-            rotulo_delta = "Início da Série (2021)"
-    elif len(st.session_state.filtro_ano) > 1:
-        rotulo_delta = "Consolidado Seleção"
+            rotulo_delta = f"Marco Base ({ano_selecionado})"
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -900,40 +1106,64 @@ with tab_l1:
     # 2. GRADE OFICIAL DE VISUALIZAÇÕES EM CARDS (LINHA 1)
     # -------------------------------------------------------------------------
 
-    # Card A: Evolução da Receita Líquida (Largura Total)
+    # -------------------------------------------------------------------------
+    # Card A: Evolução da Receita Líquida (Barras Agrupadas)
+    # -------------------------------------------------------------------------
     with st.container(border=True):
-        st.markdown('<div class="card-header-title">a) Evolução Histórica da Receita Líquida (2021 a 2023)</div>', unsafe_allow_html=True)
-        st.markdown('<div class="card-header-subtitle">Faturamento operacional líquido auditado por companhia (R$ Bilhões)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-header-title">1. Evolução Histórica da Receita Líquida (2021 a 2023)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-header-subtitle">Comparativo anual agrupado do faturamento operacional líquido auditado (R$ Bilhões)</div>', unsafe_allow_html=True)
 
         df_evol_rec = df_balancos.copy()
+
+        # Filtragem reativa aos seletores laterais
         if st.session_state.filtro_setor:
             df_evol_rec = df_evol_rec[df_evol_rec["setor"].isin(st.session_state.filtro_setor)]
         if st.session_state.filtro_ticker:
             df_evol_rec = df_evol_rec[df_evol_rec["ticker"].isin(st.session_state.filtro_ticker)]
         
-        df_evol_rec["receita_bi"] = df_evol_rec["receita_liquida"] / 1e9
+        # Escala em bilhões de reais e garantia de ano categórico
+        df_evol_rec["receita_bi"] = (df_evol_rec["receita_liquida"] / 1e9).round(2)
+        df_evol_rec["ano_str"] = df_evol_rec["ano"].astype(str)
 
+        # Gráfico de Barras Agrupadas (barmode="group")
         fig_barras_rec = px.bar(
             df_evol_rec,
             x="ticker",
             y="receita_bi",
-            color="ano",
+            color="ano_str",
             barmode="group",
             text_auto=".1f",
-            labels={"receita_bi": "Receita Líquida (R$ Bi)", "ticker": "Ativo", "ano": "Exercício Fiscal"},
-            color_discrete_sequence=px.colors.qualitative.Prism
+            labels={
+                "receita_bi": "Receita Líquida (R$ Bi)",
+                "ticker": "Companhia",
+                "ano_str": "Exercício Fiscal"
+            },
+            color_discrete_sequence=["#34495e", "#2980b9", "#27ae60"]
         )
-        fig_barras_rec.update_layout(xaxis_title="", yaxis_title="Receita Líquida (R$ Bi)")
+
+        fig_barras_rec.update_layout(
+            xaxis_title="",
+            yaxis_title="Receita Líquida (R$ Bi)",
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1.0,
+                title_text=""
+            ),
+            hovermode="x unified"
+        )
         
         fig_barras_rec = formatar_figura_card(fig_barras_rec)
-        st.plotly_chart(fig_barras_rec, use_container_width=True)
+        st.plotly_chart(fig_barras_rec, width="stretch")
 
     col_g1, col_g2 = st.columns(2)
 
     with col_g1:
         # Card B: Treemap Setorial da Receita
         with st.container(border=True):
-            st.markdown('<div class="card-header-title">b) Distribuição Setorial da Receita Líquida</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-title">2. Distribuição Setorial da Receita Líquida</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-header-subtitle">Representatividade econômica relativa dos setores na carteira (R$ Bi)</div>', unsafe_allow_html=True)
 
             df_setor_comp = df_balancos_f.groupby("setor")["receita_liquida"].sum().reset_index()
@@ -944,17 +1174,18 @@ with tab_l1:
                 path=["setor"],
                 values="receita_bi",
                 color="receita_bi",
-                color_continuous_scale="Teal"
+                # Escala moderna inspirada no dashboard de referência: do azul ao magenta
+                color_continuous_scale=["#6c5ce7", "#a29bfe", "#fd79a8", "#e84393"]
             )
             fig_tree.update_traces(textinfo="label+value+percent root")
             
             fig_tree = formatar_figura_card(fig_tree)
-            st.plotly_chart(fig_tree, use_container_width=True)
+            st.plotly_chart(fig_tree, width="stretch")
 
     with col_g2:
         # Card C: Quadrante Margem Líquida vs. ROE
         with st.container(border=True):
-            st.markdown('<div class="card-header-title">c) Quadrante Estratégico: Margem Líquida vs. ROE</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-title">3. Quadrante Estratégico: Margem Líquida vs. ROE</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-header-subtitle">Rentabilidade líquida das vendas (%) vs. Retorno sobre o PL acionário (%)</div>', unsafe_allow_html=True)
 
             fig_quad = px.scatter(
@@ -972,14 +1203,14 @@ with tab_l1:
             fig_quad.add_hline(y=0, line_dash="solid", line_color="gray")
             
             fig_quad = formatar_figura_card(fig_quad)
-            st.plotly_chart(fig_quad, use_container_width=True)
+            st.plotly_chart(fig_quad, width="stretch")
 
     col_g3, col_g4 = st.columns(2)
 
     with col_g3:
         # Card D: Boxplot da Margem EBIT por Setor
         with st.container(border=True):
-            st.markdown('<div class="card-header-title">d) Dispersão da Margem EBIT por Setor (Boxplot)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-title">4. Dispersão da Margem EBIT por Setor (Boxplot)</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-header-subtitle">Variabilidade e assimetria do retorno operacional livre de encargos financeiros</div>', unsafe_allow_html=True)
 
             fig_box = px.box(
@@ -993,12 +1224,12 @@ with tab_l1:
             fig_box.update_layout(showlegend=False, xaxis_title="", yaxis_title="Margem EBIT (%)")
             
             fig_box = formatar_figura_card(fig_box)
-            st.plotly_chart(fig_box, use_container_width=True)
+            st.plotly_chart(fig_box, width="stretch")
 
     with col_g4:
         # Card E: Matriz de Solvência e Risco Corporativo com Quadrantes Sombreados
         with st.container(border=True):
-            st.markdown('<div class="card-header-title">e) Matriz de Solvência e Risco Corporativo</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-header-title">5. Matriz de Solvência e Risco Corporativo</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-header-subtitle">Liquidez Corrente (x) vs. Dívida Líquida (R$ Bi) com delimitação de risco</div>', unsafe_allow_html=True)
 
             df_solv = df_nao_fin_f.copy()
@@ -1081,7 +1312,7 @@ with tab_l1:
                 )
 
                 fig_matriz_solv = formatar_figura_card(fig_matriz_solv)
-                st.plotly_chart(fig_matriz_solv, use_container_width=True)
+                st.plotly_chart(fig_matriz_solv, width="stretch")
 
     # -------------------------------------------------------------------------
     # 3. STORYTELLING ANALÍTICO E LIMITAÇÕES DA METODOLOGIA
@@ -1099,7 +1330,7 @@ with tab_l1:
 # ABA 4: LINHA 3 - INTELIGÊNCIA MACROECONÔMICA (BACEN / SGS)
 # =============================================================================
 with tab_l3:
-    st.subheader("🏦 Linha 3: Inteligência Macroeconômica e Indicadores Financeiros (BACEN / SGS)")
+    st.subheader("🏦 Análise Macroeconômica e Indicadores Financeiros (BACEN / SGS)")
     st.caption("Acompanhamento das metas de política monetária, ancoragem inflacionária, câmbio e atividade econômica.")
 
     # -------------------------------------------------------------------------
@@ -1209,7 +1440,7 @@ with tab_l3:
         )
         
         fig_pol_monetaria = formatar_figura_card(fig_pol_monetaria)
-        st.plotly_chart(fig_pol_monetaria, use_container_width=True)
+        st.plotly_chart(fig_pol_monetaria, width="stretch")
 
     col_m1, col_m2 = st.columns(2)
 
@@ -1237,7 +1468,7 @@ with tab_l3:
             fig_ptax.update_layout(xaxis_title="", yaxis_title="Câmbio Comercial (R$)")
             
             fig_ptax = formatar_figura_card(fig_ptax)
-            st.plotly_chart(fig_ptax, use_container_width=True)
+            st.plotly_chart(fig_ptax, width="stretch")
 
     with col_m2:
         # Card 3: Dispersão Macroeconômica Dólar vs. IPCA
@@ -1264,7 +1495,7 @@ with tab_l3:
             )
             
             fig_disp_macro = formatar_figura_card(fig_disp_macro)
-            st.plotly_chart(fig_disp_macro, use_container_width=True)
+            st.plotly_chart(fig_disp_macro, width="stretch")
 
     col_m3, col_m4 = st.columns(2)
 
@@ -1284,7 +1515,7 @@ with tab_l3:
             fig_ibc.update_layout(xaxis_title="", yaxis_title="IBC-Br Dessazonalizado")
             
             fig_ibc = formatar_figura_card(fig_ibc)
-            st.plotly_chart(fig_ibc, use_container_width=True)
+            st.plotly_chart(fig_ibc, width="stretch")
 
     with col_m4:
         # Card 5: Heatmap de Pearson
@@ -1312,7 +1543,7 @@ with tab_l3:
             fig_corr.update_layout(coloraxis_colorbar=dict(title="Pearson (r)"))
             
             fig_corr = formatar_figura_card(fig_corr)
-            st.plotly_chart(fig_corr, use_container_width=True)
+            st.plotly_chart(fig_corr, width="stretch")
 
     # -------------------------------------------------------------------------
     # 3. STORYTELLING ANALÍTICO E LIMITAÇÕES
@@ -1340,7 +1571,7 @@ with tab_exp:
             unsafe_allow_html=True
         )
 
-        st.dataframe(df_triade_f, use_container_width=True)
+        st.dataframe(df_triade_f, width="stretch")
 
         csv_bytes = df_triade_f.to_csv(index=False).encode("utf-8")
         st.download_button(
@@ -1348,7 +1579,7 @@ with tab_exp:
             data=csv_bytes,
             file_name="triade_financeira_filtrada.csv",
             mime="text/csv",
-            use_container_width=True
+            width="stretch"
         )
         
         
