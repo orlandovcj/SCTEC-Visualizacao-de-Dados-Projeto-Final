@@ -1,10 +1,26 @@
-# Plataforma Financeira Integrada (Tríade: Macro + Mercado + Balanços)
+# Projeto Final - SCTEC
+
+# Plataforma Integrada de Análise Financeira
 
 ---
 
 ## 1. Plataforma Financeira Integrada (Tríade: Macro + Mercados + Balanços)
 
-Trata-se de uma solução de Business Intelligence e Data Analytics desenvolvida em Python e Streamlit, cujo objetivo é conectar de ponta a ponta as três forças motrizes da tomada de decisão de investimentos e gestão estratégica: o cenário macroeconômico e a política monetária (BACEN), a precificação e volatilidade dos ativos de capital (B3) e a solidez econômico-financeira contábil das companhias abertas (CVM). A plataforma viabiliza análises multivariadas integradas, substituindo a leitura isolada de balanços ou gráficos de cotações por uma avaliação contextualizada do impacto dos ciclos de juros e câmbio na performance real das empresas brasileiras.
+Trata-se de uma solução de Business Intelligence e Data Analytics desenvolvida em Python e Streamlit, cujo objetivo é conectar de ponta a ponta as três forças motrizes da tomada de decisão de investimentos e gestão estratégica: o cenário macroeconômico e a política monetária (BACEN), a precificação e volatilidade dos ativos de capital (B3) e a solidez econômico-financeira contábil das companhias abertas (CVM). O painel viabiliza análises multivariadas integradas, substituindo a leitura isolada de balanços ou gráficos de cotações por uma avaliação contextualizada do impacto dos ciclos de juros e câmbio na performance real das empresas brasileiras.
+
+
+
+### 🖥️ Navegação e Arquitetura da Interface
+
+A solução está estruturada em 5 abas analíticas:
+
+1. **🌐 Análise Financeira Integrada (Tríade):** Correlação multivariada entre política monetária (BACEN), precificação de mercado (B3) e rentabilidade contábil (CVM). Inclui cartões executivos com os KPI e gráfico de dispersão com benchmark da Selic.
+2. **📈 Performance de Mercado (B3):** Painel de mercado de capitais contendo retornos acumulados, fronteira de risco × retorno, análise de drawdown histórico e inspeção técnica com médias móveis ($SMA_{21}$ e $SMA_{50}$).
+3. **🏢 Análise Fundamentalista (CVM):** Indicadores de faturamento, margens, rentabilidade sobre o patrimônio (ROE), matriz de solvência setorial e treemap de representatividade econômica.
+4. **🏦 Inteligência Macroeconômica (BACEN):** Trajetória histórica da Selic Meta, índice de inflação (IPCA), taxa de câmbio (Dólar PTAX) e índice de atividade econômica real (IBC-Br).
+5. **💾 Base de Dados & Exportação:** Visualização tabular completa dos dados consolidados higienizados com suporte a download em CSV.
+
+
 
 ---
 
@@ -37,7 +53,7 @@ A aplicação baseia-se exclusivamente em bases de dados públicas e oficiais, a
 | **Mercado de Ações**        | Histórico Diário de Cotações da B3 (Brasil, Bolsa, Balcão)                      | 01/01/2019 a 31/12/2023 (3 anos)  | Extração via biblioteca `yfinance` com sessão HTTP estruturada e intervalos de segurança | Dados de Mercado Públicos (Uso Acadêmico/Educacional) |
 | **Demonstrações Contábeis** | Portal de Dados Abertos da CVM (Comissão de Valores Mobiliários) - DFP          | Exercícios Fiscais de 2019 a 2023 | Ingestão e processamento de arquivos CSV consolidados (`_con_`) de DRE, BPA e BPP        | Dados Abertos CVM (Acesso Público Governamental)      |
 
-_Nota de Governança:_ O universo abrange 12 companhias de grande porte distribuídas em setores estratégicos: `WEGE3`, `EMBJ3` (antiga `EMBR3`), `VALE3`, `GGBR4`, `KLBN11`, `SUZB3`, `PETR4`, `PRIO3`,  `EGIE3`, `ITUB4`, `ABEV3`, `JBSS32` (antiga `JBSS3`), `LREN3`, `BBDC4` e `RENT3`.
+_Nota de Governança:_ O universo abrange 12 companhias de grande porte distribuídas em setores estratégicos: `WEGE3`, `EMBJ3` (antiga `EMBR3`), `VALE3`, `GGBR4`, `KLBN11`, `SUZB3`, `PETR4`, `PRIO3`, `EGIE3`, `ITUB4`, `ABEV3`, `JBSS32` (antiga `JBSS3`), `LREN3`, `BBDC4` e `RENT3`.
 
 ---
 
@@ -250,6 +266,8 @@ O versionamento rigoroso foi executado com branches dedicadas preservadas no his
   - `feature/05b-carga-supabase-resiliencia`
   - `feature/06-app-layout-sidebar-filtros`
   - `feature/07-app-kpis-graficos-plotly`
+  - `feature/08-visuais-plotly-cards`
+  - `feature/09-documentacao-final-readme`
 
 ### 13.2. Quadro Kanban (Trello)
 
@@ -257,7 +275,7 @@ O desenvolvimento seguiu a metodologia ágil Kanban com disciplina de **Trabalho
 
 As tarefas no quadro Kanban correspondem aos braches abertos no Git para implementação das features.
 
-![Quadro Kanban do Projeto](data/raw/trello_kanban.png)
+![Quadro Kanban do Projeto](trello_kanban.png)
 
 - **Quadro Trello:** https://trello.com/invite/b/6ad66e3ec1292230f0ed1436/ATTI89be60e163487560e45b035bc6b248610A1554C7/projeto-final-plataforma-financeira-triade-senai-sc
   _(Evidência do fluxo de cartões no Trello: Backlog $\rightarrow$ Em Andamento $\rightarrow$ Concluído)._

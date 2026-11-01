@@ -6,11 +6,12 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 
 ---
 
-## [Não Lançado] - Em Desenvolvimento
+## [1.0.0] - 2026-11-01
 
-### Em Andamento
+### Atualizado
 
-- **Card 09 / `feature/09-documentacao-final-readme`**: Validação de homologação final e revisão da documentação executiva do repositório.
+- **Revisão final da documentação do projeto**:
+  - Validação de homologação final e revisão da documentação executiva do repositório.
 
 ---
 
