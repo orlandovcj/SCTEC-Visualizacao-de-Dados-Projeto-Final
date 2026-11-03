@@ -389,11 +389,11 @@ st.markdown("---")
 # -----------------------------------------------------------------------------
 # 7. ESTRUTURAÇÃO MODULAR EM ABAS
 # -----------------------------------------------------------------------------
-tab_l4, tab_l2, tab_l1, tab_l3, tab_exp = st.tabs([
-    "🌐 Análise Integrada",
+tab_l3, tab_l2, tab_l1, tab_l4, tab_exp = st.tabs([
+    "🏦 Análise Macroeconômica",
     "📈 Performance de Mercado",
     "🏢 Análise Fundamentalista",
-    "🏦 Análise Macroeconômica",
+    "🌐 Análise Integrada",
     "💾 Base de Dados & Exportação"
 ])
 
